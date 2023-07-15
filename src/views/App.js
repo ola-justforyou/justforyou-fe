@@ -3,6 +3,8 @@ import '../App.css';
 import { React, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getWaybill } from '../actions';
+import LandingPage from './LandingPage';
+import Navbar from '../components/Navbar';
 function App(props) {
   const { state, getWaybill } = props;
   const getDataWaybill = async () => {
@@ -13,9 +15,10 @@ function App(props) {
   }, []);
   console.log(state, 'state');
   return (
-    <div className='w-screen h-screen flex'>
+    <div className='relative max-w-screen min-h-screen flex flex-col '>
+      <Navbar />
       <div className='m-auto'>
-        <h1>hello world</h1>
+        <LandingPage />
       </div>
     </div>
   );

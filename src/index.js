@@ -23,10 +23,10 @@ root.render(
         <Routes>
           <Route path='/'>
             <Route index path='/' element={<App />} />
-            <Route index path='/Portofolio' element={<Portofolio />} />
-            <Route index path='/DesainUndangan' element={<DesainUndangan />} />
-            <Route index path='/Olagiftbox' element={<Olagiftbox />} />
-            <Route path='*' element={<NotFound />} />
+            <Route index path='/portofolio' element={<Portofolio />} />
+            <Route index path='/desainundangan' element={<DesainUndangan />} />
+            <Route index path='/olagiftbox' element={<Olagiftbox />} />
+            <Route path='/*' element={<NotFound />} />
           </Route>
         </Routes>
       </BrowserRouter>
