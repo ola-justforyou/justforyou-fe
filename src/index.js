@@ -12,6 +12,7 @@ import NotFound from './views/NotFound';
 import Olagiftbox from './views/Olagiftbox';
 import Portofolio from './views/Portofolio';
 import DesainUndangan from './views/DesainUndangan';
+import Formulir from './views/Formulir';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -26,6 +27,7 @@ root.render(
             <Route index path='/portofolio' element={<Portofolio />} />
             <Route index path='/desainundangan' element={<DesainUndangan />} />
             <Route index path='/olagiftbox' element={<Olagiftbox />} />
+            <Route index path='/formulir' element={<Formulir />} />
             <Route path='/*' element={<NotFound />} />
           </Route>
         </Routes>

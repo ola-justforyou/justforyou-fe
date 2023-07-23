@@ -194,38 +194,6 @@ const DesainUndangan = () => {
               </div>
             ))}
           </section>
-          <section className='mx-auto mt-24  bg-white  flex flex-row flex-wrap justify-around md:justify-between gap-x-10 gap-y-11  md:px-6 px-0 '>
-            <div class='grid grid-cols-2 gap-4'>
-              <div class='bg-gray-200 p-4'>
-                <img
-                  src='https://flowbite.com/docs/images/products/apple-watch.png'
-                  alt='Image 1'
-                  class='w-full h-auto'
-                />
-              </div>
-              <div class='bg-gray-200 p-4'>
-                <img
-                  src='https://fastly.picsum.photos/id/22/4434/3729.jpg?hmac=fjZdkSMZJNFgsoDh8Qo5zdA_nSGUAWvKLyyqmEt2xs0'
-                  alt='Image 2'
-                  class='w-full h-auto'
-                />
-              </div>
-              <div class='bg-gray-200 p-4'>
-                <img
-                  src='https://fastly.picsum.photos/id/60/1920/1200.jpg?hmac=fAMNjl4E_sG_WNUjdU39Kald5QAHQMh-_-TsIbbeDNI'
-                  alt='Image 3'
-                  class='w-full h-auto'
-                />
-              </div>
-              <div class='bg-gray-200 p-4'>
-                <img
-                  src='https://fastly.picsum.photos/id/22/4434/3729.jpg?hmac=fjZdkSMZJNFgsoDh8Qo5zdA_nSGUAWvKLyyqmEt2xs0'
-                  alt='Image 4'
-                  class='w-full h-auto'
-                />
-              </div>
-            </div>
-          </section>
         </div>
       </div>
     </div>

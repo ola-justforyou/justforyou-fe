@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TinderCard from 'react-tinder-card';
 import Navbar from '../../components/Navbar';
 import { useNavigate } from 'react-router-dom';
@@ -31,6 +31,29 @@ const Portofolio = () => {
 
   const filledArray = Array(5).fill(5);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [deviceType, setDeviceType] = useState('');
+
+  useEffect(() => {
+    const handleResize = () => {
+      const { innerWidth } = window;
+
+      if (innerWidth < 768) {
+        setDeviceType('mobile');
+      } else if (innerWidth >= 768 && innerWidth < 1024) {
+        setDeviceType('tablet');
+      } else {
+        setDeviceType('desktop');
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -58,289 +81,173 @@ const Portofolio = () => {
     >
       <Navbar />
       <div className='m-auto'>
-        <div className='   container mb-96'>
+        <div className='   container '>
           <section className='relative  h-80 min-w-screen m-auto text-gray-600 flex'>
             <h1 className='max-w-2xl m-auto  text-center text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl pt-32'>
               Pasangan yang Berbahagia Bersama kami
             </h1>
             1
           </section>
-          <section className='relative max-w-screen '>
-            <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
-              <div className='grid gap-4'>
-                <div>
-                  <img
-                    className='h-auto max-w-full rounded-lg'
-                    src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg'
-                    alt=''
-                  />
-                </div>
-                <div>
-                  <img
-                    className='h-auto max-w-full rounded-lg'
-                    src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg'
-                    alt=''
-                  />
-                </div>
-                <div>
-                  <img
-                    className='h-auto max-w-full rounded-lg'
-                    src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg'
-                    alt=''
-                  />
-                </div>
-              </div>
-              <div className='grid gap-4'>
-                <div>
-                  <img
-                    className='h-auto max-w-full rounded-lg'
-                    src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg'
-                    alt=''
-                  />
-                </div>
-                <div>
-                  <img
-                    className='h-auto max-w-full rounded-lg'
-                    src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg'
-                    alt=''
-                  />
-                </div>
-                <div>
-                  <img
-                    className='h-auto max-w-full rounded-lg'
-                    src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg'
-                    alt=''
-                  />
-                </div>
-              </div>
-              <div className='grid gap-4'>
-                <div>
-                  <img
-                    className='h-auto max-w-full rounded-lg'
-                    src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg'
-                    alt=''
-                  />
-                </div>
-                <div>
-                  <img
-                    className='h-auto max-w-full rounded-lg'
-                    src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg'
-                    alt=''
-                  />
-                </div>
-                <div>
-                  <img
-                    className='h-auto max-w-full rounded-lg'
-                    src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg'
-                    alt=''
-                  />
-                </div>
-              </div>
-              <div className='grid gap-4'>
-                <div>
-                  <img
-                    className='h-auto max-w-full rounded-lg'
-                    src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg'
-                    alt=''
-                  />
-                </div>
-                <div>
-                  <img
-                    className='h-auto max-w-full rounded-lg'
-                    src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg'
-                    alt=''
-                  />
-                </div>
-                <div>
-                  <img
-                    className='h-auto max-w-full rounded-lg'
-                    src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg'
-                    alt=''
-                  />
-                </div>
-              </div>
-            </div>
-          </section>
-          {/* <div className='card_container'>
-            {stunts.map((stunt) => (
-              <TinderCard
-                className='swipe'
-                key={stunt.id}
-                preventSwipe={['up', 'down']}
-                onSwipe={(dir) => handleSwipe(dir, stunt.id)}
-                swipeThreshold={1.5}
-              >
-                <div
-                  style={{ backgroundImage: `url(${stunt.url})` }}
-                  className='stunt_cards'
-                >
-                  <h1> {stunt.name}</h1>
-                </div>
-              </TinderCard>
-            ))}
-          </div> */}
-          {/* <section className='mx-auto mt-24  bg-white  flex flex-row flex-wrap justify-around md:justify-between gap-x-10 gap-y-11  md:px-6 px-0 '>
-            {stunts.map((stunt, key) => (
-              <TinderCard
-                className='swipe'
-                key={stunt.id}
-                preventSwipe={['up', 'down']}
-                // preventSwipe={['left', 'right']}
-                // onSwipe={(dir) => handleSwipe(dir, stunt.id)}
-                // swipeThreshold={2.5}
-                onCardLeftScreen={() => outOfFrame(stunt.id)}
-              >
-                <div
-                  style={{
-                    backgroundImage: `url('https://flowbite.com/docs/images/products/apple-watch.png')`,
-                    backgroundSize: `cover`,
-                    backgroundPosition: `center`,
-                  }}
-                  className='relative w-80 bg-white border h-[550px] border-gray-200 rounded-xl shadow-xl'
-                >
-                  <div className='  w-full h-full bg-gradient-to-t from-black to-transparent rounded-xl  '></div>
-                  <div className='px-5   bottom-10   absolute'>
-                    <div>
-                      <h5 className='text-xl font-semibold tracking-tight text-white  mb-1  '>
-                        Tema Desain Undangan {key}
-                      </h5>
 
-                      <span
-                        className={`mr-2 ${
-                          key == 1
-                            ? 'bronze-badge'
-                            : key % 2 == 0
-                            ? 'gold-badge'
-                            : 'silver-badge'
-                        }`}
-                      >
-                        {`   ${
-                          key == 1 ? 'Bronze' : key % 2 == 0 ? 'Gold' : 'Silver'
-                        }`}
-                      </span>
-
-                      <span className='islamic-badge'>Islamic Theme</span>
-                    </div>
-
-                  
-                  </div>
-                </div>
-              </TinderCard>
-            ))}
-          </section> */}
-          {/* <section className='mx-auto mt-24  bg-white  flex flex-row flex-wrap justify-around md:justify-between gap-x-10 gap-y-11  md:px-6 px-0 '>
-            {stunts.map((stunt, key) => (
-              <TinderCard
-                className='absolute px-5'
-                key={key}
-                // swipeThreshold={1.5}
-                preventSwipe={['up', 'down']}
-                onCardLeftScreen={() => outOfFrame(stunt.id)}
-              >
-                <div
+          {deviceType === 'mobile' ? (
+            <section className='mx-auto mt-24 mb-96  bg-white space-y-4 flex flex-row flex-wrap justify-around md:justify-between gap-x-10 gap-y-11  md:px-6 px-0 '>
+              {stunts.map((stunt, key) => (
+                <TinderCard
+                  className='absolute px-5'
+                  // className={`absolute   z-${key} -${key} `}
                   key={key}
-                  className='relative w-80 bg-white border h-[550px] border-gray-200 rounded-xl shadow-xl'
-                  style={{
-                    backgroundImage: `url('https://flowbite.com/docs/images/products/apple-watch.png')`,
-                    backgroundSize: `cover`,
-                    backgroundPosition: `center`,
-                  }}
+                  swipeThreshold={1.5}
+                  preventSwipe={['down', 'up']}
+                  onCardLeftScreen={(dir) => outOfFrame(dir, stunt.id)}
+                  // onSwipe={(dir) => handleSwipe(dir, stunt.id)}
                 >
-                  <div className='absolute w-full h-full bg-gradient-to-t from-black to-transparent rounded-xl'></div>
-                  <div className='px-5 pb-5 absolute bottom-0'>
-                    <div>
-                      <h5 className='text-xl font-semibold tracking-tight text-white mb-1'>
-                        Tema Desain Undangan {key}
-                      </h5>
-
-                      <span
-                        className={`mr-2 ${
-                          key == 1
-                            ? 'bronze-badge'
-                            : key % 2 == 0
-                            ? 'gold-badge'
-                            : 'silver-badge'
-                        }`}
-                      >
-                        {`   ${
-                          key == 1 ? 'Bronze' : key % 2 == 0 ? 'Gold' : 'Silver'
-                        }`}
-                      </span>
-
-                      <span className='islamic-badge'>Islamic Theme</span>
+                  <div
+                    onClick={() => {
+                      console.log('testing');
+                    }}
+                    className='relative grid h-[40rem] w-full max-w-[28rem] flex-col items-end justify-start overflow-hidden rounded-2xl shadow-lg bg-white bg-clip-border    text-gray-700'
+                  >
+                    <div className="absolute inset-0 m-0 h-full w-full overflow-hidden rounded-none bg-transparent bg-[url('https://images.unsplash.com/photo-1552960562-daf630e9278b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80')] bg-cover bg-clip-border bg-center text-gray-700 shadow-none">
+                      <div className='to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t from-black/80 via-black/50'></div>
                     </div>
+                    <div className='relative p-6 py-14 px-6 md:px-12 w-[23rem]'>
+                      <div className='  absolute left-6  bottom-6'>
+                        <div className='mb-2'>
+                          <h5 className='text-xl font-semibold tracking-tight text-white  mb-1  '>
+                            Abi dan Nui {key}
+                          </h5>
 
-                    <div className='flex items-center justify-between mt-4'>
-                      <span className='text-3xl font-bold text-gray-900'>
-                        49.000
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </TinderCard>
-            ))}
-          </section> */}
-          <section className='mx-auto mt-24  bg-white space-y-4 flex flex-row flex-wrap justify-around md:justify-between gap-x-10 gap-y-11  md:px-6 px-0 '>
-            {stunts.map((stunt, key) => (
-              <TinderCard
-                className='absolute px-5'
-                // className={`absolute   z-${key} -${key} `}
-                key={key}
-                swipeThreshold={1.5}
-                preventSwipe={['down', 'up']}
-                onCardLeftScreen={(dir) => outOfFrame(dir, stunt.id)}
-                // onSwipe={(dir) => handleSwipe(dir, stunt.id)}
-              >
-                <div
-                  onClick={() => {
-                    console.log('testing');
-                  }}
-                  className='relative grid h-[40rem] w-full max-w-[28rem] flex-col items-end justify-start overflow-hidden rounded-2xl shadow-lg bg-white bg-clip-border    text-gray-700'
-                >
-                  <div className="absolute inset-0 m-0 h-full w-full overflow-hidden rounded-none bg-transparent bg-[url('https://images.unsplash.com/photo-1552960562-daf630e9278b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80')] bg-cover bg-clip-border bg-center text-gray-700 shadow-none">
-                    <div className='to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t from-black/80 via-black/50'></div>
-                  </div>
-                  <div className='relative p-6 py-14 px-6 md:px-12 w-[23rem]'>
-                    <div className='  absolute left-6  bottom-6'>
-                      <div className='mb-2'>
-                        <h5 className='text-xl font-semibold tracking-tight text-white  mb-1  '>
-                          Abi dan Nui {key}
-                        </h5>
+                          <span
+                            className={`mr-2 ${
+                              key == 1
+                                ? 'bronze-badge'
+                                : key % 2 == 0
+                                ? 'gold-badge'
+                                : 'silver-badge'
+                            }`}
+                          >
+                            {`   ${
+                              key == 1
+                                ? 'Bronze'
+                                : key % 2 == 0
+                                ? 'Gold'
+                                : 'Silver'
+                            }`}
+                          </span>
 
-                        <span
-                          className={`mr-2 ${
-                            key == 1
-                              ? 'bronze-badge'
-                              : key % 2 == 0
-                              ? 'gold-badge'
-                              : 'silver-badge'
-                          }`}
-                        >
-                          {`   ${
-                            key == 1
-                              ? 'Bronze'
-                              : key % 2 == 0
-                              ? 'Gold'
-                              : 'Silver'
-                          }`}
-                        </span>
-
-                        <span className='islamic-badge'>Islamic Theme</span>
+                          <span className='islamic-badge'>Islamic Theme</span>
+                        </div>
+                        <h6 className='text-sm font-semibold tracking-tight text-white  mb-1  '>
+                          16 April 2022
+                        </h6>
                       </div>
-                      <h6 className='text-sm font-semibold tracking-tight text-white  mb-1  '>
-                        16 April 2022
-                      </h6>
                     </div>
                   </div>
+                </TinderCard>
+              ))}
+            </section>
+          ) : (
+            <section className='relative max-w-screen mt-24 '>
+              <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
+                <div className='grid gap-4'>
+                  <div>
+                    <img
+                      className='h-auto max-w-full rounded-lg'
+                      src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg'
+                      alt=''
+                    />
+                  </div>
+                  <div>
+                    <img
+                      className='h-auto max-w-full rounded-lg'
+                      src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg'
+                      alt=''
+                    />
+                  </div>
+                  <div>
+                    <img
+                      className='h-auto max-w-full rounded-lg'
+                      src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg'
+                      alt=''
+                    />
+                  </div>
                 </div>
-              </TinderCard>
-            ))}
-          </section>
+                <div className='grid gap-4'>
+                  <div>
+                    <img
+                      className='h-auto max-w-full rounded-lg'
+                      src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg'
+                      alt=''
+                    />
+                  </div>
+                  <div>
+                    <img
+                      className='h-auto max-w-full rounded-lg'
+                      src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg'
+                      alt=''
+                    />
+                  </div>
+                  <div>
+                    <img
+                      className='h-auto max-w-full rounded-lg'
+                      src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg'
+                      alt=''
+                    />
+                  </div>
+                </div>
+                <div className='grid gap-4'>
+                  <div>
+                    <img
+                      className='h-auto max-w-full rounded-lg'
+                      src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg'
+                      alt=''
+                    />
+                  </div>
+                  <div>
+                    <img
+                      className='h-auto max-w-full rounded-lg'
+                      src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg'
+                      alt=''
+                    />
+                  </div>
+                  <div>
+                    <img
+                      className='h-auto max-w-full rounded-lg'
+                      src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg'
+                      alt=''
+                    />
+                  </div>
+                </div>
+                <div className='grid gap-4'>
+                  <div>
+                    <img
+                      className='h-auto max-w-full rounded-lg'
+                      src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg'
+                      alt=''
+                    />
+                  </div>
+                  <div>
+                    <img
+                      className='h-auto max-w-full rounded-lg'
+                      src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg'
+                      alt=''
+                    />
+                  </div>
+                  <div>
+                    <img
+                      className='h-auto max-w-full rounded-lg'
+                      src='https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg'
+                      alt=''
+                    />
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
         </div>
       </div>
     </div>
   );
 };
-//localhost:3000/portofolio#
 
 export default Portofolio;
