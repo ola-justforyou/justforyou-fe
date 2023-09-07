@@ -52,3 +52,29 @@
     transform: rotate(360deg);
   }
 }
+
+@keyframes slideIn {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes slideOut {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.transition-transform {
+  animation-name: slideIn;
+  animation-duration: 0.3s;
+}
+.transition-transform-out {
+  animation-name: slideOut;
+  animation-duration: 0.3s;
+}

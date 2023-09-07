@@ -16,6 +16,15 @@
 .progress-bar-done {
   @apply flex-auto border-t-2 transition duration-500 ease-in-out border-teal-600;
 }
-.progress-bullet-done {
+.progress-bar {
+  @apply flex-auto border-t-2 transition duration-500 ease-in-out border-gray-300;
+}
+.progress-bullet {
+  @apply rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2 border-gray-300 relative;
+}
+.progress-bullet-active {
   @apply rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2 bg-teal-600 border-teal-600 relative;
+}
+.progress-bullet-done {
+  @apply rounded-full transition duration-500 ease-in-out h-12 w-12 py-3 border-2 border-teal-600 relative;
 }

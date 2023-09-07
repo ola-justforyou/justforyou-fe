@@ -2,7 +2,9 @@ import { useState } from 'react';
 import React from 'react';
 import { FileUploader } from 'react-drag-drop-files';
 
-const FormIstri = () => {
+const FormIstri = (props) => {
+  const { step, steps } = props;
+
   const [file, setFile] = useState(null);
   const fileTypes = ['JPEG', 'PNG', 'GIF'];
 
@@ -10,7 +12,13 @@ const FormIstri = () => {
     setFile(file);
   };
   return (
-    <>
+    <div
+      className={` border border-gray-500 rounded p-4 ${
+        step.position < steps.id
+          ? 'transition-transform'
+          : 'transition-transform-out'
+      }  ${step.position === steps.id ? 'transform ' : ''}`}
+    >
       <div class='flex flex-col md:flex-row'>
         <div class='w-full mx-2 flex-1 svelte-1l8159u'>
           <div class='font-bold h-6 mt-3 text-gray-600 text-xs leading-8 uppercase'>
@@ -161,7 +169,7 @@ const FormIstri = () => {
         </div>
       </FileUploader>
       <p>{file ? `File name: ${file[0].name}` : 'no files uploaded yet'}</p>
-    </>
+    </div>
   );
 };
 export default FormIstri;

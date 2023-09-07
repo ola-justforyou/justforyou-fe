@@ -14,6 +14,8 @@ function App(props) {
     getDataWaybill();
   }, []);
   console.log(state, 'state');
+  const rajaongkirApiKey = process.env.REACT_APP_RAJAONKIR_API_KEY;
+  console.log(rajaongkirApiKey);
   return (
     <div className='relative max-w-screen min-h-screen flex flex-col '>
       <Navbar />
