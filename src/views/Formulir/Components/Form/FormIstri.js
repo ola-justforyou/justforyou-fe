@@ -3,7 +3,7 @@ import React from 'react';
 import { FileUploader } from 'react-drag-drop-files';
 
 const FormIstri = (props) => {
-  const { step, steps } = props;
+  const { step, steps, formState, setFormState } = props;
 
   const [file, setFile] = useState(null);
   const fileTypes = ['JPEG', 'PNG', 'GIF'];
@@ -112,15 +112,15 @@ const FormIstri = (props) => {
         <div class='w-full mx-2 flex-1 svelte-1l8159u'>
           <div class='font-bold h-6 mt-3 text-gray-600 text-xs leading-8 uppercase'>
             {' '}
-            Nama Ibu
+            Anak Ke
           </div>
           <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
             <input
               type='text'
-              placeholder='nama ibu'
+              placeholder='Anak Ke'
               class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
-              name='nama_ibu_istri'
-              id='nama_ibu_istri'
+              name='anak_ke_istri'
+              id='anak_ke_istri'
               onChange={() => console.log('testing')}
               value={''}
             />{' '}

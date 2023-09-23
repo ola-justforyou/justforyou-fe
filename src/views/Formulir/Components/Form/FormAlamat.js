@@ -2,7 +2,8 @@ import { useState } from 'react';
 import React from 'react';
 import { FileUploader } from 'react-drag-drop-files';
 
-const FormAlamatAkad = () => {
+const FormAlamatAkad = (props) => {
+  const { step, steps, formState, setFormState } = props;
   return (
     <>
       <div class='flex flex-col md:flex-row'>

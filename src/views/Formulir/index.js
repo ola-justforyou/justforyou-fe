@@ -7,6 +7,7 @@ import BoyIcon from '@mui/icons-material/Boy';
 import GirlIcon from '@mui/icons-material/Girl';
 import MapIcon from '@mui/icons-material/Map';
 import CollectionsIcon from '@mui/icons-material/Collections';
+import { MapPin, GalleryThumbnails, Image } from 'lucide-react';
 
 const Formulir = () => {
   const filledArray = Array(6).fill(5);
@@ -32,22 +33,20 @@ const Formulir = () => {
     {
       id: 3,
       label: 'Alamat',
-      icon: <MapIcon style={{ position: 'absolute', top: '10', left: '10' }} />,
+      icon: <MapPin style={{ position: 'absolute', top: '10', left: '10' }} />,
     },
     {
       id: 4,
       label: 'Galeri Foto',
-      icon: (
-        <CollectionsIcon
-          style={{ position: 'absolute', top: '10', left: '10' }}
-        />
-      ),
+      icon: <Image style={{ position: 'absolute', top: '10', left: '10' }} />,
     },
     {
       id: 5,
       label: 'Submit',
       icon: (
-        <LogoDevIcon style={{ position: 'absolute', top: '10', left: '10' }} />
+        <GalleryThumbnails
+          style={{ position: 'absolute', top: '10', left: '10' }}
+        />
       ),
     },
   ];
@@ -56,7 +55,7 @@ const Formulir = () => {
     setIsMenuOpen(!isMenuOpen);
   };
   return (
-    <div className='relative max-w-screen min-h-screen flex flex-col mb-24'>
+    <div className='relative w-screen min-h-screen flex flex-col mb-24'>
       <Navbar />
       <div className='mx-auto mt-24'>
         <div className='w-screen container'>

@@ -3,7 +3,7 @@ import React from 'react';
 import { FileUploader } from 'react-drag-drop-files';
 
 const FormSuami = (props) => {
-  const { step, steps } = props;
+  const { step, steps, formState, setFormState, handleInputChange } = props;
   const [file, setFile] = useState(null);
   const fileTypes = ['JPEG', 'PNG', 'GIF'];
 
@@ -28,11 +28,14 @@ const FormSuami = (props) => {
             <input
               type='text'
               placeholder='nama lengkap'
+              autoComplete='off'
               class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
               name='nama_lengkap_suami'
               id='nama_lengkap_suami'
-              onChange={() => console.log('testing')}
-              value={''}
+              onChange={(e) => {
+                handleInputChange(e);
+              }}
+              value={formState.nama_lengkap_suami}
             />{' '}
           </div>
         </div>
@@ -45,11 +48,14 @@ const FormSuami = (props) => {
             <input
               type='text'
               placeholder='nama panggilan'
+              autoComplete='off'
               class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
               name='nama_panggilan_suami'
               id='nama_panggilan_suami'
-              onChange={() => console.log('testing')}
-              value={''}
+              onChange={(e) => {
+                handleInputChange(e);
+              }}
+              value={formState.nama_panggilan_suami}
             />{' '}
           </div>
         </div>
@@ -64,11 +70,14 @@ const FormSuami = (props) => {
             <input
               type='text'
               placeholder='nama ayah'
+              autoComplete='off'
               class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
               name='nama_ayah_suami'
               id='nama_ayah_suami'
-              onChange={() => console.log('testing')}
-              value={''}
+              onChange={(e) => {
+                handleInputChange(e);
+              }}
+              value={formState.nama_ayah_suami}
             />{' '}
           </div>
         </div>
@@ -81,11 +90,14 @@ const FormSuami = (props) => {
             <input
               type='text'
               placeholder='nama ibu'
+              autoComplete='off'
               class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
               name='nama_ibu_suami'
               id='nama_ibu_suami'
-              onChange={() => console.log('testing')}
-              value={''}
+              onChange={(e) => {
+                handleInputChange(e);
+              }}
+              value={formState.nama_ibu_suami}
             />{' '}
           </div>
         </div>
@@ -100,29 +112,44 @@ const FormSuami = (props) => {
             <input
               type='number'
               placeholder='no hp'
+              autoComplete='off'
               class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
               name='no_hp_suami'
               id='no_hp_suami'
-              onChange={() => console.log('testing')}
-              value={''}
+              onChange={(e) => {
+                setFormState({
+                  ...formState,
+                  [e.target.name]: e.target.value.slice(0, 14),
+                });
+              }}
+              value={formState.no_hp_suami}
             />{' '}
           </div>
         </div>
         <div class='w-full mx-2 flex-1 svelte-1l8159u'>
           <div class='font-bold h-6 mt-3 text-gray-600 text-xs leading-8 uppercase'>
             {' '}
-            Nama Ibu
+            Anak Ke
           </div>
           <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
-            <input
-              type='text'
-              placeholder='nama ibu'
+            <select
+              placeholder='Anak ke'
+              autoComplete='off'
+              aria-label='Floating'
               class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
-              name='nama_ibu_suami'
-              id='nama_ibu_suami'
-              onChange={() => console.log('testing')}
-              value={''}
-            />{' '}
+              name='anak_ke_suami'
+              id='anak_ke_suami'
+              onChange={(e) => {
+                handleInputChange(e);
+              }}
+              value={formState.anak_ke_suami}
+            >
+              {Array.from({ length: 10 }).map((_, index) => (
+                <option value={index + 1} key={index + 1}>
+                  Anak ke-{index + 1}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
       </div>

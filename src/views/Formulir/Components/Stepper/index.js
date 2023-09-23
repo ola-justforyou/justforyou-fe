@@ -42,7 +42,9 @@ const Stepper = (props) => {
                 item.icon
               )}
             </div>
-            <div class='description text-teal-600'>{item.label}</div>
+            <div class='description text-teal-600 hidden sm:block'>
+              {item.label}
+            </div>
           </div>
           <div
             class={`${
