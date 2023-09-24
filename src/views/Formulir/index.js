@@ -42,7 +42,7 @@ const Formulir = () => {
     },
     {
       id: 5,
-      label: 'Submit',
+      label: 'Priview',
       icon: (
         <GalleryThumbnails
           style={{ position: 'absolute', top: '10', left: '10' }}
@@ -70,68 +70,7 @@ const Formulir = () => {
                 <Stepper step={step} setStep={setStep} steps={steps} />
               </div>
               <div class='mt-8 p-4'>
-                <Form step={step} steps={steps} />
-                <div class='flex p-2 mt-4'>
-                  {step.position <= 1 && step.start ? (
-                    ''
-                  ) : (
-                    <button
-                      class='text-base hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
-        hover:bg-gray-200  
-        bg-gray-100 
-        text-gray-700 
-        border duration-200 ease-in-out 
-        border-gray-600 transition'
-                      onClick={() => {
-                        setStep((prevState) => ({
-                          ...prevState,
-                          start: step.position <= 2 ? true : false,
-                          finish: false,
-                          position: step.position === 0 ? 0 : step.position - 1,
-                        }));
-                      }}
-                    >
-                      Previous
-                    </button>
-                  )}
-                  <div class='flex-auto flex flex-row-reverse'>
-                    {step.position >= 5 ? (
-                      <button
-                        class='text-base  ml-2  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
-        hover:bg-teal-600  
-        bg-teal-600 
-        text-teal-100 
-        border duration-200 ease-in-out 
-        border-teal-600 transition'
-                        onClick={() => {
-                          alert('data terkirim');
-                        }}
-                      >
-                        Finish
-                      </button>
-                    ) : (
-                      <button
-                        class='text-base  ml-2  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
-        hover:bg-teal-600  
-        bg-teal-600 
-        text-teal-100 
-        border duration-200 ease-in-out 
-        border-teal-600 transition'
-                        onClick={() => {
-                          setStep((prevState) => ({
-                            ...prevState,
-                            start: false,
-                            finish: step.position >= 5 ? true : false,
-                            position:
-                              step.position === 6 ? 6 : step.position + 1,
-                          }));
-                        }}
-                      >
-                        Next
-                      </button>
-                    )}
-                  </div>
-                </div>
+                <Form step={step} steps={steps} setStep={setStep} />
               </div>
             </div>
           </section>

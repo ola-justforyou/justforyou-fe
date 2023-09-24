@@ -3,11 +3,33 @@ import React from 'react';
 import { FileUploader } from 'react-drag-drop-files';
 
 const FormSuami = (props) => {
-  const { step, steps, formState, setFormState, handleInputChange } = props;
+  const {
+    step,
+    steps,
+    formState,
+    setFormState,
+    handleInputChange,
+    register,
+    setValue,
+  } = props;
   const [file, setFile] = useState(null);
+  const [fileContent, setFileContent] = useState(null);
   const fileTypes = ['JPEG', 'PNG', 'GIF'];
 
   const handleChange = (file) => {
+    console.log(file);
+    setFormState({
+      ...formState,
+      pas_foto_suami: URL.createObjectURL(file[0]),
+    });
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e.target.result;
+        setFileContent(content);
+      };
+      reader.readAsDataURL(file[0]);
+    }
     setFile(file);
   };
   return (
@@ -32,6 +54,9 @@ const FormSuami = (props) => {
               class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
               name='nama_lengkap_suami'
               id='nama_lengkap_suami'
+              {...register('nama_lengkap_suami', {
+                required: true,
+              })}
               onChange={(e) => {
                 handleInputChange(e);
               }}
@@ -52,6 +77,9 @@ const FormSuami = (props) => {
               class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
               name='nama_panggilan_suami'
               id='nama_panggilan_suami'
+              {...register('nama_panggilan_suami', {
+                required: true,
+              })}
               onChange={(e) => {
                 handleInputChange(e);
               }}
@@ -74,6 +102,9 @@ const FormSuami = (props) => {
               class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
               name='nama_ayah_suami'
               id='nama_ayah_suami'
+              {...register('nama_ayah_suami', {
+                required: true,
+              })}
               onChange={(e) => {
                 handleInputChange(e);
               }}
@@ -94,6 +125,9 @@ const FormSuami = (props) => {
               class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
               name='nama_ibu_suami'
               id='nama_ibu_suami'
+              {...register('nama_ibu_suami', {
+                required: true,
+              })}
               onChange={(e) => {
                 handleInputChange(e);
               }}
@@ -116,7 +150,11 @@ const FormSuami = (props) => {
               class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
               name='no_hp_suami'
               id='no_hp_suami'
+              {...register('no_hp_suami', {
+                required: true,
+              })}
               onChange={(e) => {
+                setValue(e.target.name, e.target.value.slice(0, 14));
                 setFormState({
                   ...formState,
                   [e.target.name]: e.target.value.slice(0, 14),
@@ -139,6 +177,9 @@ const FormSuami = (props) => {
               class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
               name='anak_ke_suami'
               id='anak_ke_suami'
+              {...register('anak_ke_suami', {
+                required: true,
+              })}
               onChange={(e) => {
                 handleInputChange(e);
               }}
@@ -153,19 +194,21 @@ const FormSuami = (props) => {
           </div>
         </div>
       </div>
-
       <FileUploader
         multiple={true}
         handleChange={handleChange}
+        onDrop={(e) => {
+          console.log(e);
+        }}
         name='file'
         types={fileTypes}
         dropMessageStyle={{ margin: '0  0.5rem' }}
-        // style={}
+        style={{ position: 'relative' }}
       >
         <div class='flex items-center justify-center w-full px-2 my-4'>
           <label
             for='dropzone-file'
-            class='flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 '
+            class='flex flex-col items-center justify-center w-full h-72 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 '
           >
             <div class='flex flex-col items-center justify-center pt-5 pb-6'>
               <svg
@@ -193,8 +236,28 @@ const FormSuami = (props) => {
             </div>
           </label>
         </div>
+        {file ? (
+          <img
+            src={formState.pas_foto_suami}
+            class='flex items-center justify-center w-full px-2 h-72 absolute rounded-xl top-1 z-0 transition-opacity duration-300  hover:opacity-50 object-contain'
+            alt='image'
+          />
+        ) : (
+          ''
+        )}{' '}
       </FileUploader>
-      <p>{file ? `File name: ${file[0].name}` : 'no files uploaded yet'}</p>
+      <p>{file ? `Nama File: ${file[0]?.name}` : ''}</p>
+      {fileContent && (
+        <div>
+          <h2>Isi File:</h2>
+          <img
+            src={fileContent}
+            class='flex items-center justify-center w-full px-2 h-72 absolute rounded-xl top-1 z-0 transition-opacity duration-300  hover:opacity-50 object-contain'
+            alt='image'
+          />
+          <pre>{fileContent}</pre>
+        </div>
+      )}
     </div>
   );
 };
