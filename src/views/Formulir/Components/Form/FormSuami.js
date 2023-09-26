@@ -14,23 +14,16 @@ const FormSuami = (props) => {
   } = props;
   const [file, setFile] = useState(null);
   const [fileContent, setFileContent] = useState(null);
-  const fileTypes = ['JPEG', 'PNG', 'GIF'];
+  const fileTypes = ['JPEG', 'PNG', 'GIF', 'JPG'];
 
   const handleChange = (file) => {
-    console.log(file);
-    setFormState({
-      ...formState,
-      pas_foto_suami: URL.createObjectURL(file[0]),
-    });
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const content = e.target.result;
-        setFileContent(content);
-      };
-      reader.readAsDataURL(file[0]);
+    if (file.length !== 0) {
+      setFormState({
+        ...formState,
+        pas_foto_suami: URL.createObjectURL(file),
+      });
+      setFile(URL.createObjectURL(file));
     }
-    setFile(file);
   };
   return (
     <div
@@ -194,12 +187,17 @@ const FormSuami = (props) => {
           </div>
         </div>
       </div>
+      <div class='flex flex-col md:flex-row'>
+        <div class='w-full mx-2 flex-1 svelte-1l8159u'>
+          <div class='font-bold h-6 mt-3 text-gray-600 text-xs leading-8 uppercase'>
+            {' '}
+            Pas Foto
+          </div>
+        </div>
+      </div>
       <FileUploader
-        multiple={true}
-        handleChange={handleChange}
-        onDrop={(e) => {
-          console.log(e);
-        }}
+        multiple={false}
+        handleChange={(file) => handleChange(file)}
         name='file'
         types={fileTypes}
         dropMessageStyle={{ margin: '0  0.5rem' }}
@@ -208,7 +206,7 @@ const FormSuami = (props) => {
         <div class='flex items-center justify-center w-full px-2 my-4'>
           <label
             for='dropzone-file'
-            class='flex flex-col items-center justify-center w-full h-72 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 '
+            class='flex flex-col items-center justify-center w-full h-96 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 '
           >
             <div class='flex flex-col items-center justify-center pt-5 pb-6'>
               <svg
@@ -227,37 +225,28 @@ const FormSuami = (props) => {
                 />
               </svg>
               <p class='mb-2 text-sm text-gray-500 '>
-                <span class='font-semibold'>Click to upload</span> or drag and
-                drop
+                <span class='font-semibold'>Click Untuk upload</span> atau drag
+                and drop
               </p>
               <p class='text-xs text-gray-500 '>
-                SVG, PNG, JPG or GIF (MAX. 800x400px)
+                SVG, PNG, JPG atau GIF (MAX. 3 Mb)
               </p>
             </div>
           </label>
         </div>
         {file ? (
-          <img
-            src={formState.pas_foto_suami}
-            class='flex items-center justify-center w-full px-2 h-72 absolute rounded-xl top-1 z-0 transition-opacity duration-300  hover:opacity-50 object-contain'
-            alt='image'
-          />
+          <div className='flex items-center justify-center w-full  h-96 absolute rounded-xl bottom-0 z-0 transition-opacity duration-300  border-black hover:opacity-50 object-contain'>
+            <img
+              src={formState?.pas_foto_suami}
+              className='rounded-xl h-full object-contain px-2 w-full'
+              alt='image'
+            />
+          </div>
         ) : (
           ''
         )}{' '}
       </FileUploader>
-      <p>{file ? `Nama File: ${file[0]?.name}` : ''}</p>
-      {fileContent && (
-        <div>
-          <h2>Isi File:</h2>
-          <img
-            src={fileContent}
-            class='flex items-center justify-center w-full px-2 h-72 absolute rounded-xl top-1 z-0 transition-opacity duration-300  hover:opacity-50 object-contain'
-            alt='image'
-          />
-          <pre>{fileContent}</pre>
-        </div>
-      )}
+      <p>{file ? `Nama File: ${file?.name}` : ''}</p>
     </div>
   );
 };
