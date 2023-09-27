@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import React from 'react';
 import { FileUploader } from 'react-drag-drop-files';
+import limitString from '../../../../utils/helpers/string';
 
 const FormSuami = (props) => {
   const {
@@ -12,17 +13,14 @@ const FormSuami = (props) => {
     register,
     setValue,
   } = props;
-  const [file, setFile] = useState(null);
-  const [fileContent, setFileContent] = useState(null);
   const fileTypes = ['JPEG', 'PNG', 'GIF', 'JPG'];
-
   const handleChange = (file) => {
     if (file.length !== 0) {
       setFormState({
         ...formState,
         pas_foto_suami: URL.createObjectURL(file),
+        nama_pas_foto_suami: limitString(file?.name, 35),
       });
-      setFile(URL.createObjectURL(file));
     }
   };
   return (
@@ -147,10 +145,10 @@ const FormSuami = (props) => {
                 required: true,
               })}
               onChange={(e) => {
-                setValue(e.target.name, e.target.value.slice(0, 14));
+                setValue(e.target.name, e.target.value.slice(0, 13));
                 setFormState({
                   ...formState,
-                  [e.target.name]: e.target.value.slice(0, 14),
+                  [e.target.name]: e.target.value.slice(0, 13),
                 });
               }}
               value={formState.no_hp_suami}
@@ -166,8 +164,8 @@ const FormSuami = (props) => {
             <select
               placeholder='Anak ke'
               autoComplete='off'
-              aria-label='Floating'
               class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
+              aria-label='Floating'
               name='anak_ke_suami'
               id='anak_ke_suami'
               {...register('anak_ke_suami', {
@@ -234,11 +232,11 @@ const FormSuami = (props) => {
             </div>
           </label>
         </div>
-        {file ? (
+        {formState?.pas_foto_suami ? (
           <div className='flex items-center justify-center w-full  h-96 absolute rounded-xl bottom-0 z-0 transition-opacity duration-300  border-black hover:opacity-50 object-contain'>
             <img
               src={formState?.pas_foto_suami}
-              className='rounded-xl h-full object-contain px-2 w-full'
+              className='rounded-xl h-full object-contain px-2 w-full '
               alt='image'
             />
           </div>
@@ -246,7 +244,11 @@ const FormSuami = (props) => {
           ''
         )}{' '}
       </FileUploader>
-      <p>{file ? `Nama File: ${file?.name}` : ''}</p>
+      <p>
+        {formState?.pas_foto_suami
+          ? `File: ${formState?.nama_pas_foto_suami}`
+          : ''}
+      </p>
     </div>
   );
 };

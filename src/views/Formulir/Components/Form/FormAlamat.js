@@ -347,6 +347,11 @@ const FormAlamatPengirimanHadiah = () => {
   return (
     <>
       <div class='flex flex-col md:flex-row'>
+        <h1 className='m-auto text-center text-4xl font-bold my-6'>
+          Alamat Pengiriman Gift
+        </h1>
+      </div>
+      <div class='flex flex-col md:flex-row'>
         <div class='w-full mx-2 flex-1 svelte-1l8159u'>
           <div className='grid grid-cols-2 md:grid-cols-12 lg:grid-cols-12 gap-4 '>
             <div className='col-span-2 md:col-span-8 lg:col-span-5 '>
@@ -543,7 +548,7 @@ const FormAlamat = (props) => {
         </h1>
       </div>
       <div class='flex flex-col md:flex-row gap-x-5 mb-5'>
-        <button class='h-10 px-5 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-full focus:shadow-outline hover:bg-indigo-800'>
+        {/* <button class='h-10 px-5 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-full focus:shadow-outline hover:bg-indigo-800'>
           Pill button
         </button>
         <button class='h-10 px-5 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-full focus:shadow-outline hover:bg-indigo-800'>
@@ -551,15 +556,11 @@ const FormAlamat = (props) => {
         </button>
         <button class='h-10 px-5 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-full focus:shadow-outline hover:bg-indigo-800'>
           Pill button
-        </button>
+        </button> */}
       </div>
       <FormAlamatResepsi />
-      <div class='flex flex-col md:flex-row'>
-        <h1 className='m-auto text-center text-4xl font-bold my-6'>
-          Alamat Pengiriman Gift
-        </h1>
-      </div>
-      <FormAlamatPengirimanHadiah />
+
+      {/* <FormAlamatPengirimanHadiah /> */}
     </div>
   );
 };

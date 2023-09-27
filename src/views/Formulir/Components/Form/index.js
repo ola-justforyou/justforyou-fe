@@ -14,6 +14,7 @@ const Form = (props) => {
     reset,
     setValue,
   } = useForm();
+
   const [formState, setFormState] = useState({
     nama_lengkap_suami: '',
     nama_panggilan_suami: '',
@@ -22,12 +23,31 @@ const Form = (props) => {
     no_hp_suami: '',
     anak_ke_suami: '',
     pas_foto_suami: '',
+    nama_file_pas_foto_suami: '',
     nama_lengkap_istri: '',
     nama_panggilan_istri: '',
     nama_ayah_istri: '',
     nama_ibu_istri: '',
     no_hp_istri: '',
     anak_ke_istri: '',
+    pas_foto_istri: '',
+    nama_file_pas_foto_istri: '',
+    jalan_akad: '',
+    rt_akad: '',
+    rw_akad: '',
+    kode_provinsi_akad: '',
+    kode_kabupaten_akad: '',
+    kode_kecamatan_akad: '',
+    kode_kelurahan_akad: '',
+    kode_pos_akad: '',
+    jalan_resepsi: '',
+    rt_resepsi: '',
+    rw_resepsi: '',
+    kode_provinsi_resepsi: '',
+    kode_kabupaten_resepsi: '',
+    kode_kecamatan_resepsi: '',
+    kode_kelurahan_resepsi: '',
+    kode_pos_resepsi: '',
   });
   function handleInputChange(event) {
     if (
