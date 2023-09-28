@@ -12,7 +12,7 @@ export const getListProvinsi = () => {
   return (dispatch) => {
     dispatch({ type: SET_LIST_WILAYAH_LOADING, status: true });
     axios
-      .get('http://www.emsifa.com/api-wilayah-indonesia/api/provinces.json')
+      .get('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json')
       .then((response) => {
         if (response.status === 200 || response.status === 201) {
           dispatch({
@@ -38,7 +38,7 @@ export const getListKabupaten = (id) => {
     dispatch({ type: SET_LIST_WILAYAH_LOADING, status: true });
     axios
       .get(
-        'http://www.emsifa.com/api-wilayah-indonesia/api/regencies/' +
+        'https://www.emsifa.com/api-wilayah-indonesia/api/regencies/' +
           id +
           '.json'
       )
@@ -67,7 +67,7 @@ export const getListKecamatan = (id) => {
     dispatch({ type: SET_LIST_WILAYAH_LOADING, status: true });
     axios
       .get(
-        'http://www.emsifa.com/api-wilayah-indonesia/api/districts/' +
+        'https://www.emsifa.com/api-wilayah-indonesia/api/districts/' +
           id +
           '.json'
       )
@@ -96,7 +96,7 @@ export const getListKelurahan = (id) => {
     dispatch({ type: SET_LIST_WILAYAH_LOADING, status: true });
     axios
       .get(
-        'http://www.emsifa.com/api-wilayah-indonesia/api/villages/' +
+        'https://www.emsifa.com/api-wilayah-indonesia/api/villages/' +
           id +
           '.json'
       )
