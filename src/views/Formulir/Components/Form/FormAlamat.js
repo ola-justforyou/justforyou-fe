@@ -1,14 +1,27 @@
-import { useState } from 'react';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FileUploader } from 'react-drag-drop-files';
 
 const FormAlamatAkad = (props) => {
-  const { step, steps, formState, setFormState } = props;
+  const {
+    minDate,
+    formState,
+    setFormState,
+    handleInputChange,
+    register,
+    setValue,
+    selection,
+    setSelection,
+  } = props;
   return (
     <>
+      <div class='flex flex-col md:flex-row '>
+        <h1 className='m-auto text-center text-3xl font-bold my-2'>
+          Alamat dan Tanggal Akad
+        </h1>
+      </div>
       <div class='flex flex-col md:flex-row'>
-        <div class='w-full mx-2 flex-1 svelte-1l8159u'>
-          <div className='grid grid-cols-2 md:grid-cols-12 lg:grid-cols-12 gap-4 '>
+        <div class='w-full mx-auto px-2 flex-1 svelte-1l8159u'>
+          <div className='grid grid-cols-2 md:grid-cols-12 lg:grid-cols-12 gap-x-4 gap-y-0 '>
             <div className='col-span-2 md:col-span-8 lg:col-span-5 '>
               <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
                 {' '}
@@ -17,12 +30,17 @@ const FormAlamatAkad = (props) => {
               <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
                 <input
                   type='text'
-                  placeholder='nama_jalan_akad'
+                  placeholder='Jl. '
                   class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
                   name='nama_jalan_akad'
                   id='nama_jalan_akad'
-                  onChange={() => console.log('testing')}
-                  value={''}
+                  {...register('nama_jalan_akad', {
+                    required: true,
+                  })}
+                  onChange={(e) => {
+                    handleInputChange(e);
+                  }}
+                  value={formState.nama_jalan_akad}
                 />{' '}
               </div>
             </div>
@@ -39,8 +57,17 @@ const FormAlamatAkad = (props) => {
                   class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
                   name='rt_akad'
                   id='rt_akad'
-                  onChange={() => console.log('testing')}
-                  value={''}
+                  {...register('rt_akad', {
+                    required: true,
+                  })}
+                  onChange={(e) => {
+                    setValue(e.target.name, e.target.value.slice(0, 3));
+                    setFormState({
+                      ...formState,
+                      [e.target.name]: e.target.value.slice(0, 3),
+                    });
+                  }}
+                  value={formState.rt_akad}
                 />{' '}
               </div>
             </div>
@@ -57,8 +84,17 @@ const FormAlamatAkad = (props) => {
                   class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
                   name='rw_akad'
                   id='rw_akad'
-                  onChange={() => console.log('testing')}
-                  value={''}
+                  {...register('rw_akad', {
+                    required: true,
+                  })}
+                  onChange={(e) => {
+                    setValue(e.target.name, e.target.value.slice(0, 3));
+                    setFormState({
+                      ...formState,
+                      [e.target.name]: e.target.value.slice(0, 3),
+                    });
+                  }}
+                  value={formState.rw_akad}
                 />{' '}
               </div>
             </div>
@@ -71,15 +107,19 @@ const FormAlamatAkad = (props) => {
                 <select
                   className='px-2 py-1.5 text-sm bg-white text-gray-900   w-full '
                   aria-label='Floating'
-                  id='provinsi_akad'
-                  name='provinsi_akad'
-                  onChange={(e) => {}}
-                  value={''}
+                  id='kode_provinsi_akad'
+                  name='kode_provinsi_akad'
+                  onChange={(e) => {
+                    handleInputChange(e);
+                  }}
+                  value={formState.kode_provinsi_akad}
                 >
                   <option value=''> Provinsi </option>
-                  <option value={'lampung'} key={1}>
-                    lampung
-                  </option>
+                  {selection.provinsiSelectionAkad?.map((provinsi) => (
+                    <option value={provinsi.id} key={provinsi.id}>
+                      {provinsi.name}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -87,8 +127,8 @@ const FormAlamatAkad = (props) => {
         </div>
       </div>
       <div class='flex flex-col md:flex-row'>
-        <div class='w-full mx-2 flex-1 svelte-1l8159u'>
-          <div className='grid grid-cols-1  lg:grid-cols-12 gap-4 '>
+        <div class='w-full mx-auto px-2 flex-1 svelte-1l8159u'>
+          <div className='grid grid-cols-1  lg:grid-cols-12 gap-x-4 gap-y-0 '>
             <div className='col-span-1  lg:col-span-4 '>
               <div class='font-bold h-6 text-gray-600 text-xs leading-8 '>
                 {' '}
@@ -98,8 +138,8 @@ const FormAlamatAkad = (props) => {
                 <select
                   className='px-2 py-1.5 text-sm bg-white text-gray-900   w-full '
                   aria-label='Floating'
-                  id='kabupaten_akad'
-                  name='kabupaten_akad'
+                  id='kode_kabupaten_akad'
+                  name='kode_kabupaten_akad'
                   onChange={(e) => {}}
                   value={''}
                 >
@@ -119,8 +159,8 @@ const FormAlamatAkad = (props) => {
                 <select
                   className='px-2 py-1.5 text-sm bg-white text-gray-900   w-full '
                   aria-label='Floating'
-                  id='kecamatan_akad'
-                  name='kecamatan_akad'
+                  id='kode_kecamatan_akad'
+                  name='kode_kecamatan_akad'
                   onChange={(e) => {}}
                   value={''}
                 >
@@ -134,23 +174,52 @@ const FormAlamatAkad = (props) => {
             <div className='col-span-1  lg:col-span-4 '>
               <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
                 {' '}
+                Kelurahan
+              </div>
+              <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
+                <select
+                  className='px-2 py-1.5 text-sm bg-white text-gray-900   w-full '
+                  aria-label='Floating'
+                  id='kode_kelurahan_akad'
+                  name='kode_kelurahan_akad'
+                  onChange={(e) => {}}
+                  value={''}
+                >
+                  <option value=''> kelurahan </option>
+                  <option value={'lampung'} key={1}>
+                    lampung
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div className='grid grid-cols-1  lg:grid-cols-12 gap-x-4 gap-y-0 '>
+            <div className='col-span-1  lg:col-span-4 '>
+              <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
+                {' '}
                 Kode Pos
               </div>
               <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
                 <input
                   type='number'
-                  placeholder='kelurahan, Rumah warna hijau'
                   class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
                   name='kode_pos_akad'
                   id='kode_pos_akad'
-                  onChange={() => console.log('testing')}
-                  value={''}
+                  {...register('kode_pos_akad', {
+                    required: true,
+                  })}
+                  onChange={(e) => {
+                    setValue(e.target.name, e.target.value.slice(0, 6));
+                    setFormState({
+                      ...formState,
+                      [e.target.name]: e.target.value.slice(0, 6),
+                    });
+                  }}
+                  value={formState.kode_pos_akad}
                 />{' '}
               </div>
             </div>
-          </div>
-          <div className='grid grid-cols-1  lg:grid-cols-12 gap-4 '>
-            <div className='col-span-1  lg:col-span-5 '>
+            <div className='col-span-1  lg:col-span-4 '>
               <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
                 {' '}
                 Detail Lainnya
@@ -162,8 +231,36 @@ const FormAlamatAkad = (props) => {
                   class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
                   name='detail_alamat_akad'
                   id='detail_alamat_akad'
-                  onChange={() => console.log('testing')}
-                  value={''}
+                  {...register('detail_alamat_akad', {
+                    required: true,
+                  })}
+                  onChange={(e) => {
+                    handleInputChange(e);
+                  }}
+                  value={formState.detail_alamat_akad}
+                />{' '}
+              </div>
+            </div>
+            <div className='col-span-1  lg:col-span-4 '>
+              <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
+                {' '}
+                Tanggal Akad
+              </div>
+              <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
+                <input
+                  type='datetime-local'
+                  class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
+                  name='tanggal_akad'
+                  id='tanggal_akad'
+                  autoComplete='off'
+                  min={minDate}
+                  {...register('tanggal_akad', {
+                    required: true,
+                  })}
+                  onChange={(e) => {
+                    handleInputChange(e);
+                  }}
+                  value={formState.tanggal_akad}
                 />{' '}
               </div>
             </div>
@@ -173,12 +270,27 @@ const FormAlamatAkad = (props) => {
     </>
   );
 };
-const FormAlamatResepsi = () => {
+const FormAlamatResepsi = (props) => {
+  const {
+    minDate,
+    formState,
+    setFormState,
+    handleInputChange,
+    register,
+    setValue,
+    selection,
+    setSelection,
+  } = props;
   return (
     <>
+      <div class='flex flex-col md:flex-row mt-24 sm:mt-6'>
+        <h1 className='m-auto text-center text-3xl font-bold my-2'>
+          Alamat dan Tanggal Resepsi
+        </h1>
+      </div>
       <div class='flex flex-col md:flex-row'>
-        <div class='w-full mx-2 flex-1 svelte-1l8159u'>
-          <div className='grid grid-cols-2 md:grid-cols-12 lg:grid-cols-12 gap-4 '>
+        <div class='w-full mx-auto px-2 flex-1 svelte-1l8159u'>
+          <div className='grid grid-cols-2 md:grid-cols-12 lg:grid-cols-12 gap-x-4 gap-y-0'>
             <div className='col-span-2 md:col-span-8 lg:col-span-5 '>
               <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
                 {' '}
@@ -187,12 +299,17 @@ const FormAlamatResepsi = () => {
               <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
                 <input
                   type='text'
-                  placeholder='nama_jalan_resepsi'
+                  placeholder='Jl. '
                   class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
                   name='nama_jalan_resepsi'
                   id='nama_jalan_resepsi'
-                  onChange={() => console.log('testing')}
-                  value={''}
+                  {...register('nama_jalan_resepsi', {
+                    required: true,
+                  })}
+                  onChange={(e) => {
+                    handleInputChange(e);
+                  }}
+                  value={formState.nama_jalan_resepsi}
                 />{' '}
               </div>
             </div>
@@ -209,8 +326,17 @@ const FormAlamatResepsi = () => {
                   class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
                   name='rt_resepsi'
                   id='rt_resepsi'
-                  onChange={() => console.log('testing')}
-                  value={''}
+                  {...register('rt_resepsi', {
+                    required: true,
+                  })}
+                  onChange={(e) => {
+                    setValue(e.target.name, e.target.value.slice(0, 3));
+                    setFormState({
+                      ...formState,
+                      [e.target.name]: e.target.value.slice(0, 3),
+                    });
+                  }}
+                  value={formState.rt_resepsi}
                 />{' '}
               </div>
             </div>
@@ -227,8 +353,17 @@ const FormAlamatResepsi = () => {
                   class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
                   name='rw_resepsi'
                   id='rw_resepsi'
-                  onChange={() => console.log('testing')}
-                  value={''}
+                  {...register('rw_resepsi', {
+                    required: true,
+                  })}
+                  onChange={(e) => {
+                    setValue(e.target.name, e.target.value.slice(0, 3));
+                    setFormState({
+                      ...formState,
+                      [e.target.name]: e.target.value.slice(0, 3),
+                    });
+                  }}
+                  value={formState.rw_resepsi}
                 />{' '}
               </div>
             </div>
@@ -241,15 +376,19 @@ const FormAlamatResepsi = () => {
                 <select
                   className='px-2 py-1.5 text-sm bg-white text-gray-900   w-full '
                   aria-label='Floating'
-                  id='provinsi_resepsi'
-                  name='provinsi_resepsi'
-                  onChange={(e) => {}}
-                  value={''}
+                  id='kode_provinsi_resepsi'
+                  name='kode_provinsi_resepsi'
+                  onChange={(e) => {
+                    handleInputChange(e);
+                  }}
+                  value={formState.kode_provinsi_resepsi}
                 >
                   <option value=''> Provinsi </option>
-                  <option value={'lampung'} key={1}>
-                    lampung
-                  </option>
+                  {selection.provinsiSelectionResepsi?.map((provinsi) => (
+                    <option value={provinsi.id} key={provinsi.id}>
+                      {provinsi.name}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -257,8 +396,8 @@ const FormAlamatResepsi = () => {
         </div>
       </div>
       <div class='flex flex-col md:flex-row'>
-        <div class='w-full mx-2 flex-1 svelte-1l8159u'>
-          <div className='grid grid-cols-1  lg:grid-cols-12 gap-4 '>
+        <div class='w-full mx-auto px-2 flex-1 svelte-1l8159u'>
+          <div className='grid grid-cols-1  lg:grid-cols-12 gap-x-4 gap-y-0 '>
             <div className='col-span-1  lg:col-span-4 '>
               <div class='font-bold h-6 text-gray-600 text-xs leading-8 '>
                 {' '}
@@ -268,8 +407,8 @@ const FormAlamatResepsi = () => {
                 <select
                   className='px-2 py-1.5 text-sm bg-white text-gray-900   w-full '
                   aria-label='Floating'
-                  id='kabupaten_akad'
-                  name='kabupaten_akad'
+                  id='kode_kabupaten_resepsi'
+                  name='kode_kabupaten_resepsi'
                   onChange={(e) => {}}
                   value={''}
                 >
@@ -289,8 +428,8 @@ const FormAlamatResepsi = () => {
                 <select
                   className='px-2 py-1.5 text-sm bg-white text-gray-900   w-full '
                   aria-label='Floating'
-                  id='kecamatan_akad'
-                  name='kecamatan_akad'
+                  id='kode_kecamatan_resepsi'
+                  name='kode_kecamatan_resepsi'
                   onChange={(e) => {}}
                   value={''}
                 >
@@ -304,23 +443,52 @@ const FormAlamatResepsi = () => {
             <div className='col-span-1  lg:col-span-4 '>
               <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
                 {' '}
+                Kelurahan
+              </div>
+              <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
+                <select
+                  className='px-2 py-1.5 text-sm bg-white text-gray-900   w-full '
+                  aria-label='Floating'
+                  id='kode_kelurahan_resepsi'
+                  name='kode_kelurahan_resepsi'
+                  onChange={(e) => {}}
+                  value={''}
+                >
+                  <option value=''> kelurahan </option>
+                  <option value={'lampung'} key={1}>
+                    lampung
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div className='grid grid-cols-1  lg:grid-cols-12 gap-x-4 gap-y-0 '>
+            <div className='col-span-1  lg:col-span-4 '>
+              <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
+                {' '}
                 Kode Pos
               </div>
               <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
                 <input
                   type='number'
-                  placeholder='kelurahan, Rumah warna hijau'
                   class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
-                  name='kode_pos_akad'
-                  id='kode_pos_akad'
-                  onChange={() => console.log('testing')}
-                  value={''}
+                  name='kode_pos_resepsi'
+                  id='kode_pos_resepsi'
+                  {...register('kode_pos_resepsi', {
+                    required: true,
+                  })}
+                  onChange={(e) => {
+                    setValue(e.target.name, e.target.value.slice(0, 6));
+                    setFormState({
+                      ...formState,
+                      [e.target.name]: e.target.value.slice(0, 6),
+                    });
+                  }}
+                  value={formState.kode_pos_resepsi}
                 />{' '}
               </div>
             </div>
-          </div>
-          <div className='grid grid-cols-1  lg:grid-cols-12 gap-4 '>
-            <div className='col-span-1  lg:col-span-5 '>
+            <div className='col-span-1  lg:col-span-4 '>
               <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
                 {' '}
                 Detail Lainnya
@@ -330,185 +498,37 @@ const FormAlamatResepsi = () => {
                   type='text'
                   placeholder='kelurahan, Rumah warna hijau'
                   class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
-                  name='detail_alamat_akad'
-                  id='detail_alamat_akad'
-                  onChange={() => console.log('testing')}
-                  value={''}
+                  name='detail_alamat_resepsi'
+                  id='detail_alamat_resepsi'
+                  {...register('detail_alamat_resepsi', {
+                    required: true,
+                  })}
+                  onChange={(e) => {
+                    handleInputChange(e);
+                  }}
+                  value={formState.detail_alamat_resepsi}
                 />{' '}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
-const FormAlamatPengirimanHadiah = () => {
-  return (
-    <>
-      <div class='flex flex-col md:flex-row'>
-        <h1 className='m-auto text-center text-4xl font-bold my-6'>
-          Alamat Pengiriman Gift
-        </h1>
-      </div>
-      <div class='flex flex-col md:flex-row'>
-        <div class='w-full mx-2 flex-1 svelte-1l8159u'>
-          <div className='grid grid-cols-2 md:grid-cols-12 lg:grid-cols-12 gap-4 '>
-            <div className='col-span-2 md:col-span-8 lg:col-span-5 '>
-              <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
-                {' '}
-                Nama Jalan
-              </div>
-              <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
-                <input
-                  type='text'
-                  placeholder='nama_jalan_hadiah'
-                  class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
-                  name='nama_jalan_hadiah'
-                  id='nama_jalan_hadiah'
-                  onChange={() => console.log('testing')}
-                  value={''}
-                />{' '}
-              </div>
-            </div>
-            <div className='col-span-1 md:col-span-2 lg:col-span-1'>
-              <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
-                {' '}
-                RT
-              </div>
-              <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
-                <input
-                  type='number'
-                  onWheel={(e) => e.target.blur()}
-                  placeholder='001'
-                  class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
-                  name='rt_hadiah'
-                  id='rt_hadiah'
-                  onChange={() => console.log('testing')}
-                  value={''}
-                />{' '}
-              </div>
-            </div>
-            <div className='col-span-1 md:col-span-2 lg:col-span-1 '>
-              <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
-                {' '}
-                RW
-              </div>
-              <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
-                <input
-                  type='number'
-                  onWheel={(e) => e.target.blur()}
-                  placeholder='001'
-                  class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
-                  name='rw_hadiah'
-                  id='rw_hadiah'
-                  onChange={() => console.log('testing')}
-                  value={''}
-                />{' '}
-              </div>
-            </div>
-            <div className='col-span-2 md:col-span-12 lg:col-span-5 '>
-              <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
-                {' '}
-                Provinsi
-              </div>
-              <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
-                <select
-                  className='px-2 py-1.5 text-sm bg-white text-gray-900   w-full '
-                  aria-label='Floating'
-                  id='provinsi_hadiah'
-                  name='provinsi_hadiah'
-                  onChange={(e) => {}}
-                  value={''}
-                >
-                  <option value=''> Provinsi </option>
-                  <option value={'lampung'} key={1}>
-                    lampung
-                  </option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class='flex flex-col md:flex-row'>
-        <div class='w-full mx-2 flex-1 svelte-1l8159u'>
-          <div className='grid grid-cols-1  lg:grid-cols-12 gap-4 '>
-            <div className='col-span-1  lg:col-span-4 '>
-              <div class='font-bold h-6 text-gray-600 text-xs leading-8 '>
-                {' '}
-                Kabupaten/Kota
-              </div>
-              <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
-                <select
-                  className='px-2 py-1.5 text-sm bg-white text-gray-900   w-full '
-                  aria-label='Floating'
-                  id='kabupaten_akad'
-                  name='kabupaten_akad'
-                  onChange={(e) => {}}
-                  value={''}
-                >
-                  <option value=''> Kabupaten </option>
-                  <option value={'lampung'} key={1}>
-                    lampung
-                  </option>
-                </select>
-              </div>
-            </div>
-            <div className='col-span-1  lg:col-span-4 '>
-              <div class='font-bold h-6 text-gray-600 text-xs leading-8 '>
-                {' '}
-                Kecamatan
-              </div>
-              <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
-                <select
-                  className='px-2 py-1.5 text-sm bg-white text-gray-900   w-full '
-                  aria-label='Floating'
-                  id='kecamatan_akad'
-                  name='kecamatan_akad'
-                  onChange={(e) => {}}
-                  value={''}
-                >
-                  <option value=''> kecamatan </option>
-                  <option value={'lampung'} key={1}>
-                    lampung
-                  </option>
-                </select>
               </div>
             </div>
             <div className='col-span-1  lg:col-span-4 '>
               <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
                 {' '}
-                Kode Pos
+                Tanggal resepsi
               </div>
               <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
                 <input
-                  type='number'
-                  placeholder='kelurahan, Rumah warna hijau'
+                  type='datetime-local'
                   class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
-                  name='kode_pos_akad'
-                  id='kode_pos_akad'
-                  onChange={() => console.log('testing')}
-                  value={''}
-                />{' '}
-              </div>
-            </div>
-          </div>
-          <div className='grid grid-cols-1  lg:grid-cols-12 gap-4 '>
-            <div className='col-span-1  lg:col-span-5 '>
-              <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
-                {' '}
-                Detail Lainnya
-              </div>
-              <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
-                <input
-                  type='text'
-                  placeholder='kelurahan, Rumah warna hijau'
-                  class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
-                  name='detail_alamat_akad'
-                  id='detail_alamat_akad'
-                  onChange={() => console.log('testing')}
-                  value={''}
+                  name='tanggal_resepsi'
+                  id='tanggal_resepsi'
+                  min={minDate}
+                  {...register('tanggal_resepsi', {
+                    required: true,
+                  })}
+                  onChange={(e) => {
+                    handleInputChange(e);
+                  }}
+                  value={formState.tanggal_resepsi}
                 />{' '}
               </div>
             </div>
@@ -520,47 +540,59 @@ const FormAlamatPengirimanHadiah = () => {
 };
 
 const FormAlamat = (props) => {
-  const { step, steps } = props;
+  const {
+    step,
+    steps,
+    formState,
+    setFormState,
+    handleInputChange,
+    register,
+    setValue,
+    selection,
+    setSelection,
+  } = props;
+  const [minDate, setMinDate] = useState('');
 
-  const [file, setFile] = useState(null);
-  const fileTypes = ['JPEG', 'PNG', 'GIF'];
+  useEffect(() => {
+    const today = new Date();
+    const lastMonth = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() + 1
+    );
+    const formattedDate = lastMonth.toISOString().slice(0, 16);
+    setMinDate(formattedDate);
+  }, []);
 
-  const handleChange = (file) => {
-    setFile(file);
-  };
   return (
     <div
-      className={` border border-gray-500 rounded p-4 ${
+      className={` shadow-md border-gray-500 rounded p-4 ${
         step.position < steps.id
           ? 'transition-transform'
           : 'transition-transform-out'
       }  ${step.position === steps.id ? 'transform ' : ''}`}
     >
-      <div class='flex flex-col md:flex-row'>
-        <h1 className='m-auto text-center text-4xl font-bold my-6'>
-          Alamat Akad Pernikahan
-        </h1>
-      </div>
-      <FormAlamatAkad />
-      <div class='flex flex-col md:flex-row'>
-        <h1 className='m-auto text-center text-4xl font-bold my-6'>
-          Alamat Resepsi Pernikahan
-        </h1>
-      </div>
-      <div class='flex flex-col md:flex-row gap-x-5 mb-5'>
-        {/* <button class='h-10 px-5 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-full focus:shadow-outline hover:bg-indigo-800'>
-          Pill button
-        </button>
-        <button class='h-10 px-5 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-full focus:shadow-outline hover:bg-indigo-800'>
-          Pill button
-        </button>
-        <button class='h-10 px-5 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-full focus:shadow-outline hover:bg-indigo-800'>
-          Pill button
-        </button> */}
-      </div>
-      <FormAlamatResepsi />
-
-      {/* <FormAlamatPengirimanHadiah /> */}
+      <FormAlamatAkad
+        formState={formState}
+        minDate={minDate}
+        setFormState={setFormState}
+        handleInputChange={handleInputChange}
+        register={register}
+        setValue={setValue}
+        selection={selection}
+        setSelection={setSelection}
+      />
+      <div class='flex flex-col md:flex-row gap-x-5 mb-5'></div>
+      <FormAlamatResepsi
+        formState={formState}
+        minDate={minDate}
+        setFormState={setFormState}
+        handleInputChange={handleInputChange}
+        register={register}
+        setValue={setValue}
+        selection={selection}
+        setSelection={setSelection}
+      />
     </div>
   );
 };

@@ -27,14 +27,19 @@ const FormIstri = (props) => {
   };
   return (
     <div
-      className={` border border-gray-500 rounded p-4 ${
+      className={` shadow-md border-gray-500 rounded p-4 ${
         step.position < steps.id
           ? 'transition-transform'
           : 'transition-transform-out'
       }  ${step.position === steps.id ? 'transform ' : ''}`}
     >
+      <div class='flex flex-col md:flex-row sm:hidden'>
+        <h1 className='m-auto text-center text-3xl font-bold my-2'>
+          Mempelai Perempuan
+        </h1>
+      </div>
       <div class='flex flex-col md:flex-row'>
-        <div class='w-full mx-2 flex-1 svelte-1l8159u'>
+        <div class='w-full mx-auto px-2 flex-1 svelte-1l8159u'>
           <div class='font-bold h-6 mt-3 text-gray-600 text-xs leading-8 uppercase'>
             {' '}
             Nama Lengkap
@@ -56,7 +61,7 @@ const FormIstri = (props) => {
             />{' '}
           </div>
         </div>
-        <div class='w-full mx-2 flex-1 svelte-1l8159u'>
+        <div class='w-full mx-auto px-2 flex-1 svelte-1l8159u'>
           <div class='font-bold h-6 mt-3 text-gray-600 text-xs leading-8 uppercase'>
             {' '}
             Nama Panggilan
@@ -80,7 +85,7 @@ const FormIstri = (props) => {
         </div>
       </div>
       <div class='flex flex-col md:flex-row'>
-        <div class='w-full mx-2 flex-1 svelte-1l8159u'>
+        <div class='w-full mx-auto px-2 flex-1 svelte-1l8159u'>
           <div class='font-bold h-6 mt-3 text-gray-600 text-xs leading-8 uppercase'>
             {' '}
             Nama Ayah
@@ -102,7 +107,7 @@ const FormIstri = (props) => {
             />{' '}
           </div>
         </div>
-        <div class='w-full mx-2 flex-1 svelte-1l8159u'>
+        <div class='w-full mx-auto px-2 flex-1 svelte-1l8159u'>
           <div class='font-bold h-6 mt-3 text-gray-600 text-xs leading-8 uppercase'>
             {' '}
             Nama Ibu
@@ -126,7 +131,7 @@ const FormIstri = (props) => {
         </div>
       </div>
       <div class='flex flex-col md:flex-row'>
-        <div class='w-full mx-2 flex-1 svelte-1l8159u'>
+        <div class='w-full mx-auto px-2 flex-1 svelte-1l8159u'>
           <div class='font-bold h-6 mt-3 text-gray-600 text-xs leading-8 uppercase'>
             {' '}
             No HP
@@ -152,7 +157,7 @@ const FormIstri = (props) => {
             />{' '}
           </div>
         </div>
-        <div class='w-full mx-2 flex-1 svelte-1l8159u'>
+        <div class='w-full mx-auto px-2 flex-1 svelte-1l8159u'>
           <div class='font-bold h-6 mt-3 text-gray-600 text-xs leading-8 uppercase'>
             {' '}
             Anak Ke
@@ -184,7 +189,7 @@ const FormIstri = (props) => {
       </div>
 
       <div class='flex flex-col md:flex-row'>
-        <div class='w-full mx-2 flex-1 svelte-1l8159u'>
+        <div class='w-full mx-auto px-2 flex-1 svelte-1l8159u'>
           <div class='font-bold h-6 mt-3 text-gray-600 text-xs leading-8 uppercase'>
             {' '}
             Pas Foto
@@ -242,7 +247,7 @@ const FormIstri = (props) => {
           ''
         )}{' '}
       </FileUploader>
-      <p>
+      <p className='px-2 mx-auto'>
         {formState?.pas_foto_istri
           ? `File: ${formState?.nama_pas_foto_istri}`
           : ''}

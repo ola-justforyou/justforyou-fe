@@ -1,12 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import FormIstri from './FormIstri';
 import FormSuami from './FormSuami';
 import FormAlamat from './FormAlamat';
 import FormGaleri from './FormGaleri';
+import { connect, useDispatch } from 'react-redux';
+import {
+  getListProvinsi,
+  getListKabupaten,
+  getListKecamatan,
+  getListKelurahan,
+} from '../../../../actions/wilayahAction';
 
 const Form = (props) => {
-  const { step, steps, setStep } = props;
+  const {
+    step,
+    steps,
+    setStep,
+    getListProvinsi,
+    getListKabupaten,
+    getListKecamatan,
+    getListKelurahan,
+    listProvinsi,
+    listKabupaten,
+    listKecamatan,
+    listKelurahan,
+  } = props;
   const {
     register,
     formState: { errors },
@@ -14,6 +33,10 @@ const Form = (props) => {
     reset,
     setValue,
   } = useForm();
+
+  const [provinsiSelected, setProvinsiSelected] = useState('');
+  const [kabupatenSelected, setKabupatenSelected] = useState('');
+  const [kecamatanSelected, setKecamatanSelected] = useState('');
 
   const [formState, setFormState] = useState({
     nama_lengkap_suami: '',
@@ -32,7 +55,8 @@ const Form = (props) => {
     anak_ke_istri: '',
     pas_foto_istri: '',
     nama_file_pas_foto_istri: '',
-    jalan_akad: '',
+    nama_jalan_akad: '',
+    detail_alamat_akad: '',
     rt_akad: '',
     rw_akad: '',
     kode_provinsi_akad: '',
@@ -40,7 +64,9 @@ const Form = (props) => {
     kode_kecamatan_akad: '',
     kode_kelurahan_akad: '',
     kode_pos_akad: '',
-    jalan_resepsi: '',
+    tanggal_akad: '',
+    nama_jalan_resepsi: '',
+    detail_alamat_resepsi: '',
     rt_resepsi: '',
     rw_resepsi: '',
     kode_provinsi_resepsi: '',
@@ -48,6 +74,7 @@ const Form = (props) => {
     kode_kecamatan_resepsi: '',
     kode_kelurahan_resepsi: '',
     kode_pos_resepsi: '',
+    tanggal_resepsi: '',
   });
   function handleInputChange(event) {
     if (
@@ -72,6 +99,16 @@ const Form = (props) => {
     console.log('enak guys');
     handleSubmit((data) => onSubmit(data, formState))(event);
   };
+  const [selection, setSelection] = useState({
+    provinsiSelectionAkad: [],
+    provinsiSelectionResepsi: [],
+    kabupatenSelectionAkad: [],
+    kabupatenSelectionResepsi: [],
+    kecamatanSelectionAkad: [],
+    kecamatanSelectionResepsi: [],
+    kelurahanSelectionAkad: [],
+    kelurahanSelectionResepsi: [],
+  });
   const formulirs = [
     {
       id: 1,
@@ -115,6 +152,8 @@ const Form = (props) => {
           handleInputChange={handleInputChange}
           register={register}
           setValue={setValue}
+          selection={selection}
+          setSelection={setSelection}
         />
       ),
     },
@@ -135,7 +174,32 @@ const Form = (props) => {
     },
   ];
 
+  const handleGetListProvinsi = async (e) => {
+    await getListProvinsi();
+  };
+  const handleGetListKabupaten = async (id) => {
+    await getListProvinsi(id);
+  };
+  const handleGetListKecamatan = async (id) => {
+    await getListProvinsi(id);
+  };
+  const handleGetListKelurahan = async (id) => {
+    await getListProvinsi(id);
+  };
+  useEffect(() => {
+    handleGetListProvinsi();
+  }, []);
+  useEffect(() => {
+    setSelection((prevState) => ({
+      ...prevState,
+      provinsiSelectionAkad: listProvinsi,
+      provinsiSelectionResepsi: listProvinsi,
+    }));
+  }, [listProvinsi]);
+
   console.log(formState, 'formState');
+  // console.log(listProvinsi, 'formState');
+  // console.log(selection, 'selection');
   return (
     <>
       <form key={1} onSubmit={onSubmitHandler}>
@@ -214,4 +278,17 @@ const Form = (props) => {
   );
 };
 
-export default Form;
+const mapStateToProps = (state) => ({
+  listProvinsi: state.wilayah.data.provinsi,
+  listKabupaten: state.wilayah.data.kabupaten,
+  listKecamatan: state.wilayah.data.kecamatan,
+  listKelurahan: state.wilayah.data.kelurahan,
+  wilayahLoading: state.wilayah.data.loading,
+  wilayahError: state.wilayah.data.error,
+});
+export default connect(mapStateToProps, {
+  getListProvinsi,
+  getListKabupaten,
+  getListKecamatan,
+  getListKelurahan,
+})(Form);

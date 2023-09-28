@@ -32,7 +32,7 @@ const Formulir = () => {
     },
     {
       id: 3,
-      label: 'Alamat',
+      label: 'Alamat dan Tanggal',
       icon: <MapPin style={{ position: 'absolute', top: '10', left: '10' }} />,
     },
     {
@@ -64,12 +64,12 @@ const Formulir = () => {
             m-auto text-gray-600 flex'
           >
             <div class='w-screen'>
-              <div class='mx-4 p-4'>
+              <div class='mx-4 px-4 py-1 sm:py-4'>
                 {/* stepper */}
 
                 <Stepper step={step} setStep={setStep} steps={steps} />
               </div>
-              <div class='mt-8 p-4'>
+              <div class='mt-0 sm:mt-5 p-4'>
                 <Form step={step} steps={steps} setStep={setStep} />
               </div>
             </div>
