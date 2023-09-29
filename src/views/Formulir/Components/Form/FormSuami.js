@@ -5,6 +5,7 @@ import limitString from '../../../../utils/helpers/string';
 
 const FormSuami = (props) => {
   const {
+    errors,
     step,
     steps,
     formState,
@@ -23,6 +24,7 @@ const FormSuami = (props) => {
       });
     }
   };
+  // console.log(errors.nama_lengkap_suami?.type, '--------');
   return (
     <div
       className={` shadow-md border-gray-500 rounded p-3 ${
@@ -59,6 +61,12 @@ const FormSuami = (props) => {
               value={formState.nama_lengkap_suami}
             />{' '}
           </div>
+          <span style={{ color: 'red' }}>
+            <small>
+              {errors.nama_lengkap_suami?.type === 'required' &&
+                'Jenis Kelamin Bayi Wajib Diisi'}
+            </small>
+          </span>
         </div>
         <div class='w-full mx-auto px-2 flex-1 svelte-1l8159u'>
           <div class='font-bold h-6 mt-3 text-gray-600 text-xs leading-8 uppercase'>

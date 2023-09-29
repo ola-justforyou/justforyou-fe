@@ -30,13 +30,10 @@ const Form = (props) => {
     register,
     formState: { errors },
     handleSubmit,
+    getValues,
     reset,
     setValue,
   } = useForm();
-
-  const [provinsiSelected, setProvinsiSelected] = useState('');
-  const [kabupatenSelected, setKabupatenSelected] = useState('');
-  const [kecamatanSelected, setKecamatanSelected] = useState('');
 
   const [formState, setFormState] = useState({
     nama_lengkap_suami: '',
@@ -76,6 +73,11 @@ const Form = (props) => {
     kode_pos_resepsi: '',
     tanggal_resepsi: '',
   });
+
+  const [provinsiSelected, setProvinsiSelected] = useState('');
+  const [kabupatenSelected, setKabupatenSelected] = useState('');
+  const [kecamatanSelected, setKecamatanSelected] = useState('');
+
   function handleInputChange(event) {
     if (
       event.type === 'keydown' &&
@@ -91,12 +93,46 @@ const Form = (props) => {
       [name]: value.slice(0, 50),
     });
   }
+
+  const handleGetListProvinsi = async (e) => {
+    await getListProvinsi();
+  };
+  const handleGetListKabupaten = async (id) => {
+    await getListKabupaten(id);
+  };
+  const handleGetListKecamatan = async (id) => {
+    await getListKecamatan(id);
+  };
+  const handleGetListKelurahan = async (id) => {
+    await getListKelurahan(id);
+  };
+  const handleProvinsiChange = async (e) => {
+    setProvinsiSelected(e.target.name);
+    handleInputChange(e);
+    handleGetListKabupaten(e.target.value);
+  };
+  const handleKabupatenChange = async (e) => {
+    setKabupatenSelected(e.target.name);
+    handleInputChange(e);
+    handleGetListKecamatan(e.target.value);
+  };
+  const handleKecamatanChange = async (e) => {
+    setKecamatanSelected(e.target.name);
+    handleInputChange(e);
+    handleGetListKelurahan(e.target.value);
+  };
+  const handleKelurahanChange = async (e) => {
+    handleInputChange(e);
+  };
+
   const onSubmit = async (data, state) => {
     console.log('enak guys');
+    console.log('dsvdsenak guys');
+    const allFormValues = getValues();
+    console.log('Semua nilai input:', allFormValues);
     // await dispatch(postSuratKeteranganLahir(state));
   };
   const onSubmitHandler = (event) => {
-    console.log('enak guys');
     handleSubmit((data) => onSubmit(data, formState))(event);
   };
   const [selection, setSelection] = useState({
@@ -115,6 +151,7 @@ const Form = (props) => {
       label: 'Formulir Suami',
       form: (
         <FormSuami
+          errors={errors}
           step={step}
           steps={steps}
           formState={formState}
@@ -154,6 +191,10 @@ const Form = (props) => {
           setValue={setValue}
           selection={selection}
           setSelection={setSelection}
+          handleProvinsiChange={handleProvinsiChange}
+          handleKabupatenChange={handleKabupatenChange}
+          handleKecamatanChange={handleKecamatanChange}
+          handleKelurahanChange={handleKelurahanChange}
         />
       ),
     },
@@ -174,18 +215,6 @@ const Form = (props) => {
     },
   ];
 
-  const handleGetListProvinsi = async (e) => {
-    await getListProvinsi();
-  };
-  const handleGetListKabupaten = async (id) => {
-    await getListProvinsi(id);
-  };
-  const handleGetListKecamatan = async (id) => {
-    await getListProvinsi(id);
-  };
-  const handleGetListKelurahan = async (id) => {
-    await getListProvinsi(id);
-  };
   useEffect(() => {
     handleGetListProvinsi();
   }, []);
@@ -196,6 +225,78 @@ const Form = (props) => {
       provinsiSelectionResepsi: listProvinsi,
     }));
   }, [listProvinsi]);
+  useEffect(() => {
+    if (
+      listKabupaten !== null &&
+      listKabupaten !== '' &&
+      listKabupaten !== undefined &&
+      listKabupaten.length
+    ) {
+      if (provinsiSelected === 'kode_provinsi_akad') {
+        setSelection((prevState) => ({
+          ...prevState,
+          kabupatenSelectionAkad: listKabupaten?.sort((a, b) =>
+            a.name.localeCompare(b.name)
+          ),
+        }));
+      } else if (provinsiSelected === 'kode_provinsi_resepsi') {
+        setSelection((prevState) => ({
+          ...prevState,
+          kabupatenSelectionResepsi: listKabupaten?.sort((a, b) =>
+            a.name.localeCompare(b.name)
+          ),
+        }));
+      }
+    }
+  }, [listKabupaten, provinsiSelected]);
+  useEffect(() => {
+    if (
+      listKecamatan !== null &&
+      listKecamatan !== '' &&
+      listKecamatan !== undefined &&
+      listKecamatan.length
+    ) {
+      if (kabupatenSelected === 'kode_kabupaten_akad') {
+        setSelection((prevState) => ({
+          ...prevState,
+          kecamatanSelectionAkad: listKecamatan?.sort((a, b) =>
+            a.name.localeCompare(b.name)
+          ),
+        }));
+      } else if (kabupatenSelected === 'kode_kabupaten_resepsi') {
+        setSelection((prevState) => ({
+          ...prevState,
+          kecamatanSelectionResepsi: listKecamatan?.sort((a, b) =>
+            a.name.localeCompare(b.name)
+          ),
+        }));
+      }
+    }
+  }, [listKecamatan, kabupatenSelected]);
+  useEffect(() => {
+    if (
+      listKelurahan !== null &&
+      listKelurahan !== '' &&
+      listKelurahan !== undefined &&
+      listKelurahan.length
+    ) {
+      if (kecamatanSelected === 'kode_kecamatan_akad') {
+        setSelection((prevState) => ({
+          ...prevState,
+          kelurahanSelectionAkad: listKelurahan?.sort((a, b) =>
+            a.name.localeCompare(b.name)
+          ),
+        }));
+      } else if (kecamatanSelected === 'kode_kecamatan_resepsi') {
+        setSelection((prevState) => ({
+          ...prevState,
+          kelurahanSelectionResepsi: listKelurahan?.sort((a, b) =>
+            a.name.localeCompare(b.name)
+          ),
+        }));
+      }
+    }
+  }, [listKelurahan, kecamatanSelected]);
 
   console.log(formState, 'formState');
   // console.log(listProvinsi, 'formState');

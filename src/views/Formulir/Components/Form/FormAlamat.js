@@ -11,6 +11,10 @@ const FormAlamatAkad = (props) => {
     setValue,
     selection,
     setSelection,
+    handleProvinsiChange,
+    handleKabupatenChange,
+    handleKecamatanChange,
+    handleKelurahanChange,
   } = props;
   return (
     <>
@@ -110,7 +114,7 @@ const FormAlamatAkad = (props) => {
                   id='kode_provinsi_akad'
                   name='kode_provinsi_akad'
                   onChange={(e) => {
-                    handleInputChange(e);
+                    handleProvinsiChange(e);
                   }}
                   value={formState.kode_provinsi_akad}
                 >
@@ -140,13 +144,17 @@ const FormAlamatAkad = (props) => {
                   aria-label='Floating'
                   id='kode_kabupaten_akad'
                   name='kode_kabupaten_akad'
-                  onChange={(e) => {}}
-                  value={''}
+                  onChange={(e) => {
+                    handleKabupatenChange(e);
+                  }}
+                  value={formState.kode_kabupaten_akad}
                 >
                   <option value=''> Kabupaten </option>
-                  <option value={'lampung'} key={1}>
-                    lampung
-                  </option>
+                  {selection.kabupatenSelectionAkad?.map((kabupaten) => (
+                    <option value={kabupaten?.id} key={kabupaten?.id}>
+                      {kabupaten.name}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -161,13 +169,17 @@ const FormAlamatAkad = (props) => {
                   aria-label='Floating'
                   id='kode_kecamatan_akad'
                   name='kode_kecamatan_akad'
-                  onChange={(e) => {}}
-                  value={''}
+                  onChange={(e) => {
+                    handleKecamatanChange(e);
+                  }}
+                  value={formState.kode_kecamatan_akad}
                 >
                   <option value=''> kecamatan </option>
-                  <option value={'lampung'} key={1}>
-                    lampung
-                  </option>
+                  {selection.kecamatanSelectionAkad?.map((kecamatan) => (
+                    <option value={kecamatan?.id} key={kecamatan?.id}>
+                      {kecamatan.name}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -182,13 +194,17 @@ const FormAlamatAkad = (props) => {
                   aria-label='Floating'
                   id='kode_kelurahan_akad'
                   name='kode_kelurahan_akad'
-                  onChange={(e) => {}}
-                  value={''}
+                  onChange={(e) => {
+                    handleKelurahanChange(e);
+                  }}
+                  value={formState.kode_kelurahan_akad}
                 >
                   <option value=''> kelurahan </option>
-                  <option value={'lampung'} key={1}>
-                    lampung
-                  </option>
+                  {selection.kelurahanSelectionAkad?.map((kelurahan) => (
+                    <option value={kelurahan?.id} key={kelurahan?.id}>
+                      {kelurahan.name}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -280,6 +296,10 @@ const FormAlamatResepsi = (props) => {
     setValue,
     selection,
     setSelection,
+    handleProvinsiChange,
+    handleKabupatenChange,
+    handleKecamatanChange,
+    handleKelurahanChange,
   } = props;
   return (
     <>
@@ -379,7 +399,7 @@ const FormAlamatResepsi = (props) => {
                   id='kode_provinsi_resepsi'
                   name='kode_provinsi_resepsi'
                   onChange={(e) => {
-                    handleInputChange(e);
+                    handleProvinsiChange(e);
                   }}
                   value={formState.kode_provinsi_resepsi}
                 >
@@ -409,13 +429,17 @@ const FormAlamatResepsi = (props) => {
                   aria-label='Floating'
                   id='kode_kabupaten_resepsi'
                   name='kode_kabupaten_resepsi'
-                  onChange={(e) => {}}
-                  value={''}
+                  onChange={(e) => {
+                    handleKabupatenChange(e);
+                  }}
+                  value={formState.kode_kabupaten_resepsi}
                 >
                   <option value=''> Kabupaten </option>
-                  <option value={'lampung'} key={1}>
-                    lampung
-                  </option>
+                  {selection.kabupatenSelectionResepsi?.map((kabupaten) => (
+                    <option value={kabupaten?.id} key={kabupaten?.id}>
+                      {kabupaten.name}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -430,13 +454,19 @@ const FormAlamatResepsi = (props) => {
                   aria-label='Floating'
                   id='kode_kecamatan_resepsi'
                   name='kode_kecamatan_resepsi'
-                  onChange={(e) => {}}
-                  value={''}
+                  onChange={(e) => {
+                    handleKecamatanChange(e);
+                  }}
+                  value={formState.kode_kecamatan_resepsi}
                 >
                   <option value=''> kecamatan </option>
-                  <option value={'lampung'} key={1}>
-                    lampung
-                  </option>
+                  {selection.kecamatanSelectionResepsi
+                    .sort((a, b) => a.name.localeCompare(b.name))
+                    ?.map((kecamatan) => (
+                      <option value={kecamatan?.id} key={kecamatan?.id}>
+                        {kecamatan.name}
+                      </option>
+                    ))}
                 </select>
               </div>
             </div>
@@ -451,13 +481,17 @@ const FormAlamatResepsi = (props) => {
                   aria-label='Floating'
                   id='kode_kelurahan_resepsi'
                   name='kode_kelurahan_resepsi'
-                  onChange={(e) => {}}
-                  value={''}
+                  onChange={(e) => {
+                    handleKelurahanChange(e);
+                  }}
+                  value={formState.kode_kelurahan_resepsi}
                 >
                   <option value=''> kelurahan </option>
-                  <option value={'lampung'} key={1}>
-                    lampung
-                  </option>
+                  {selection.kelurahanSelectionResepsi?.map((kelurahan) => (
+                    <option value={kelurahan?.id} key={kelurahan?.id}>
+                      {kelurahan.name}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -550,6 +584,10 @@ const FormAlamat = (props) => {
     setValue,
     selection,
     setSelection,
+    handleProvinsiChange,
+    handleKabupatenChange,
+    handleKecamatanChange,
+    handleKelurahanChange,
   } = props;
   const [minDate, setMinDate] = useState('');
 
@@ -581,6 +619,10 @@ const FormAlamat = (props) => {
         setValue={setValue}
         selection={selection}
         setSelection={setSelection}
+        handleProvinsiChange={handleProvinsiChange}
+        handleKabupatenChange={handleKabupatenChange}
+        handleKecamatanChange={handleKecamatanChange}
+        handleKelurahanChange={handleKelurahanChange}
       />
       <div class='flex flex-col md:flex-row gap-x-5 mb-5'></div>
       <FormAlamatResepsi
@@ -592,6 +634,10 @@ const FormAlamat = (props) => {
         setValue={setValue}
         selection={selection}
         setSelection={setSelection}
+        handleProvinsiChange={handleProvinsiChange}
+        handleKabupatenChange={handleKabupatenChange}
+        handleKecamatanChange={handleKecamatanChange}
+        handleKelurahanChange={handleKelurahanChange}
       />
     </div>
   );

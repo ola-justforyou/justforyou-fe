@@ -21,7 +21,6 @@ const wilayahReducer = (state, action) => {
   state = state || initialState;
   switch (action.type) {
     case SET_LIST_PROVINSI:
-      //   console.log('ini di reducer wilayah', action.data);
       return {
         ...state,
         data: {
