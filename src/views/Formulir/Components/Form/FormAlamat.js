@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { FileUploader } from 'react-drag-drop-files';
 
 const FormAlamatAkad = (props) => {
   const {
@@ -10,7 +9,6 @@ const FormAlamatAkad = (props) => {
     register,
     setValue,
     selection,
-    setSelection,
     handleProvinsiChange,
     handleKabupatenChange,
     handleKecamatanChange,
@@ -23,7 +21,7 @@ const FormAlamatAkad = (props) => {
           Alamat dan Tanggal Akad
         </h1>
       </div>
-      <div class='flex flex-col md:flex-row'>
+      <div class='flex flex-col mt-2 md:flex-row'>
         <div class='w-full mx-auto px-2 flex-1 svelte-1l8159u'>
           <div className='grid grid-cols-2 md:grid-cols-12 lg:grid-cols-12 gap-x-4 gap-y-0 '>
             <div className='col-span-2 md:col-span-8 lg:col-span-5 '>
@@ -295,11 +293,12 @@ const FormAlamatResepsi = (props) => {
     register,
     setValue,
     selection,
-    setSelection,
     handleProvinsiChange,
     handleKabupatenChange,
     handleKecamatanChange,
     handleKelurahanChange,
+    isSameWithAkad,
+    setSameWithAkad,
   } = props;
   return (
     <>
@@ -308,265 +307,289 @@ const FormAlamatResepsi = (props) => {
           Alamat dan Tanggal Resepsi
         </h1>
       </div>
-      <div class='flex flex-col md:flex-row'>
-        <div class='w-full mx-auto px-2 flex-1 svelte-1l8159u'>
-          <div className='grid grid-cols-2 md:grid-cols-12 lg:grid-cols-12 gap-x-4 gap-y-0'>
-            <div className='col-span-2 md:col-span-8 lg:col-span-5 '>
-              <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
-                {' '}
-                Nama Jalan
-              </div>
-              <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
-                <input
-                  type='text'
-                  placeholder='Jl. '
-                  class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
-                  name='nama_jalan_resepsi'
-                  id='nama_jalan_resepsi'
-                  {...register('nama_jalan_resepsi', {
-                    required: true,
-                  })}
-                  onChange={(e) => {
-                    handleInputChange(e);
-                  }}
-                  value={formState.nama_jalan_resepsi}
-                />{' '}
-              </div>
-            </div>
-            <div className='col-span-1 md:col-span-2 lg:col-span-1'>
-              <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
-                {' '}
-                RT
-              </div>
-              <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
-                <input
-                  type='number'
-                  onWheel={(e) => e.target.blur()}
-                  placeholder='001'
-                  class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
-                  name='rt_resepsi'
-                  id='rt_resepsi'
-                  {...register('rt_resepsi', {
-                    required: true,
-                  })}
-                  onChange={(e) => {
-                    setValue(e.target.name, e.target.value.slice(0, 3));
-                    setFormState({
-                      ...formState,
-                      [e.target.name]: e.target.value.slice(0, 3),
-                    });
-                  }}
-                  value={formState.rt_resepsi}
-                />{' '}
-              </div>
-            </div>
-            <div className='col-span-1 md:col-span-2 lg:col-span-1 '>
-              <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
-                {' '}
-                RW
-              </div>
-              <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
-                <input
-                  type='number'
-                  onWheel={(e) => e.target.blur()}
-                  placeholder='001'
-                  class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
-                  name='rw_resepsi'
-                  id='rw_resepsi'
-                  {...register('rw_resepsi', {
-                    required: true,
-                  })}
-                  onChange={(e) => {
-                    setValue(e.target.name, e.target.value.slice(0, 3));
-                    setFormState({
-                      ...formState,
-                      [e.target.name]: e.target.value.slice(0, 3),
-                    });
-                  }}
-                  value={formState.rw_resepsi}
-                />{' '}
-              </div>
-            </div>
-            <div className='col-span-2 md:col-span-12 lg:col-span-5 '>
-              <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
-                {' '}
-                Provinsi
-              </div>
-              <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
-                <select
-                  className='px-2 py-1.5 text-sm bg-white text-gray-900   w-full '
-                  aria-label='Floating'
-                  id='kode_provinsi_resepsi'
-                  name='kode_provinsi_resepsi'
-                  onChange={(e) => {
-                    handleProvinsiChange(e);
-                  }}
-                  value={formState.kode_provinsi_resepsi}
-                >
-                  <option value=''> Provinsi </option>
-                  {selection.provinsiSelectionResepsi?.map((provinsi) => (
-                    <option value={provinsi.id} key={provinsi.id}>
-                      {provinsi.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className='sm:ml-3 ml-2 mt-2 flex items-center '>
+        <input
+          id='default-checkbox'
+          type='checkbox'
+          value={isSameWithAkad}
+          checked={isSameWithAkad}
+          onChange={() => {
+            setSameWithAkad(!isSameWithAkad);
+          }}
+          className='w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 '
+        />
+        <label
+          for='default-checkbox'
+          className='ml-2 font-bold   text-gray-900 text-sm leading-8 '
+        >
+          Sama Seperti Alamat dan Tanggal Akad
+        </label>
       </div>
-      <div class='flex flex-col md:flex-row'>
-        <div class='w-full mx-auto px-2 flex-1 svelte-1l8159u'>
-          <div className='grid grid-cols-1  lg:grid-cols-12 gap-x-4 gap-y-0 '>
-            <div className='col-span-1  lg:col-span-4 '>
-              <div class='font-bold h-6 text-gray-600 text-xs leading-8 '>
-                {' '}
-                Kabupaten/Kota
-              </div>
-              <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
-                <select
-                  className='px-2 py-1.5 text-sm bg-white text-gray-900   w-full '
-                  aria-label='Floating'
-                  id='kode_kabupaten_resepsi'
-                  name='kode_kabupaten_resepsi'
-                  onChange={(e) => {
-                    handleKabupatenChange(e);
-                  }}
-                  value={formState.kode_kabupaten_resepsi}
-                >
-                  <option value=''> Kabupaten </option>
-                  {selection.kabupatenSelectionResepsi?.map((kabupaten) => (
-                    <option value={kabupaten?.id} key={kabupaten?.id}>
-                      {kabupaten.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <div className='col-span-1  lg:col-span-4 '>
-              <div class='font-bold h-6 text-gray-600 text-xs leading-8 '>
-                {' '}
-                Kecamatan
-              </div>
-              <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
-                <select
-                  className='px-2 py-1.5 text-sm bg-white text-gray-900   w-full '
-                  aria-label='Floating'
-                  id='kode_kecamatan_resepsi'
-                  name='kode_kecamatan_resepsi'
-                  onChange={(e) => {
-                    handleKecamatanChange(e);
-                  }}
-                  value={formState.kode_kecamatan_resepsi}
-                >
-                  <option value=''> kecamatan </option>
-                  {selection.kecamatanSelectionResepsi?.map((kecamatan) => (
-                    <option value={kecamatan?.id} key={kecamatan?.id}>
-                      {kecamatan.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <div className='col-span-1  lg:col-span-4 '>
-              <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
-                {' '}
-                Kelurahan
-              </div>
-              <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
-                <select
-                  className='px-2 py-1.5 text-sm bg-white text-gray-900   w-full '
-                  aria-label='Floating'
-                  id='kode_kelurahan_resepsi'
-                  name='kode_kelurahan_resepsi'
-                  onChange={(e) => {
-                    handleKelurahanChange(e);
-                  }}
-                  value={formState.kode_kelurahan_resepsi}
-                >
-                  <option value=''> kelurahan </option>
-                  {selection.kelurahanSelectionResepsi?.map((kelurahan) => (
-                    <option value={kelurahan?.id} key={kelurahan?.id}>
-                      {kelurahan.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </div>
-          <div className='grid grid-cols-1  lg:grid-cols-12 gap-x-4 gap-y-0 '>
-            <div className='col-span-1  lg:col-span-4 '>
-              <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
-                {' '}
-                Kode Pos
-              </div>
-              <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
-                <input
-                  type='number'
-                  class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
-                  name='kode_pos_resepsi'
-                  id='kode_pos_resepsi'
-                  {...register('kode_pos_resepsi', {
-                    required: true,
-                  })}
-                  onChange={(e) => {
-                    setValue(e.target.name, e.target.value.slice(0, 6));
-                    setFormState({
-                      ...formState,
-                      [e.target.name]: e.target.value.slice(0, 6),
-                    });
-                  }}
-                  value={formState.kode_pos_resepsi}
-                />{' '}
-              </div>
-            </div>
-            <div className='col-span-1  lg:col-span-4 '>
-              <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
-                {' '}
-                Detail Lainnya
-              </div>
-              <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
-                <input
-                  type='text'
-                  placeholder='kelurahan, Rumah warna hijau'
-                  class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
-                  name='detail_alamat_resepsi'
-                  id='detail_alamat_resepsi'
-                  {...register('detail_alamat_resepsi', {
-                    required: true,
-                  })}
-                  onChange={(e) => {
-                    handleInputChange(e);
-                  }}
-                  value={formState.detail_alamat_resepsi}
-                />{' '}
-              </div>
-            </div>
-            <div className='col-span-1  lg:col-span-4 '>
-              <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
-                {' '}
-                Tanggal resepsi
-              </div>
-              <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
-                <input
-                  type='datetime-local'
-                  class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
-                  name='tanggal_resepsi'
-                  id='tanggal_resepsi'
-                  min={minDate}
-                  {...register('tanggal_resepsi', {
-                    required: true,
-                  })}
-                  onChange={(e) => {
-                    handleInputChange(e);
-                  }}
-                  value={formState.tanggal_resepsi}
-                />{' '}
+      {!isSameWithAkad ? (
+        <>
+          <div className='flex flex-col md:flex-row'>
+            <div class='w-full mx-auto px-2 flex-1 svelte-1l8159u'>
+              <div className='grid grid-cols-2 md:grid-cols-12 lg:grid-cols-12 gap-x-4 gap-y-0'>
+                <div className='col-span-2 md:col-span-8 lg:col-span-5 '>
+                  <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
+                    {' '}
+                    Nama Jalan
+                  </div>
+                  <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
+                    <input
+                      type='text'
+                      placeholder='Jl. '
+                      class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
+                      name='nama_jalan_resepsi'
+                      id='nama_jalan_resepsi'
+                      {...register('nama_jalan_resepsi', {
+                        required: true,
+                      })}
+                      onChange={(e) => {
+                        handleInputChange(e);
+                      }}
+                      value={formState.nama_jalan_resepsi}
+                    />{' '}
+                  </div>
+                </div>
+                <div className='col-span-1 md:col-span-2 lg:col-span-1'>
+                  <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
+                    {' '}
+                    RT
+                  </div>
+                  <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
+                    <input
+                      type='number'
+                      onWheel={(e) => e.target.blur()}
+                      placeholder='001'
+                      class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
+                      name='rt_resepsi'
+                      id='rt_resepsi'
+                      {...register('rt_resepsi', {
+                        required: true,
+                      })}
+                      onChange={(e) => {
+                        setValue(e.target.name, e.target.value.slice(0, 3));
+                        setFormState({
+                          ...formState,
+                          [e.target.name]: e.target.value.slice(0, 3),
+                        });
+                      }}
+                      value={formState.rt_resepsi}
+                    />{' '}
+                  </div>
+                </div>
+                <div className='col-span-1 md:col-span-2 lg:col-span-1 '>
+                  <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
+                    {' '}
+                    RW
+                  </div>
+                  <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
+                    <input
+                      type='number'
+                      onWheel={(e) => e.target.blur()}
+                      placeholder='001'
+                      class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
+                      name='rw_resepsi'
+                      id='rw_resepsi'
+                      {...register('rw_resepsi', {
+                        required: true,
+                      })}
+                      onChange={(e) => {
+                        setValue(e.target.name, e.target.value.slice(0, 3));
+                        setFormState({
+                          ...formState,
+                          [e.target.name]: e.target.value.slice(0, 3),
+                        });
+                      }}
+                      value={formState.rw_resepsi}
+                    />{' '}
+                  </div>
+                </div>
+                <div className='col-span-2 md:col-span-12 lg:col-span-5 '>
+                  <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
+                    {' '}
+                    Provinsi
+                  </div>
+                  <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
+                    <select
+                      className='px-2 py-1.5 text-sm bg-white text-gray-900   w-full '
+                      aria-label='Floating'
+                      id='kode_provinsi_resepsi'
+                      name='kode_provinsi_resepsi'
+                      onChange={(e) => {
+                        handleProvinsiChange(e);
+                      }}
+                      value={formState.kode_provinsi_resepsi}
+                    >
+                      <option value=''> Provinsi </option>
+                      {selection.provinsiSelectionResepsi?.map((provinsi) => (
+                        <option value={provinsi.id} key={provinsi.id}>
+                          {provinsi.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+          <div class='flex flex-col md:flex-row'>
+            <div class='w-full mx-auto px-2 flex-1 svelte-1l8159u'>
+              <div className='grid grid-cols-1  lg:grid-cols-12 gap-x-4 gap-y-0 '>
+                <div className='col-span-1  lg:col-span-4 '>
+                  <div class='font-bold h-6 text-gray-600 text-xs leading-8 '>
+                    {' '}
+                    Kabupaten/Kota
+                  </div>
+                  <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
+                    <select
+                      className='px-2 py-1.5 text-sm bg-white text-gray-900   w-full '
+                      aria-label='Floating'
+                      id='kode_kabupaten_resepsi'
+                      name='kode_kabupaten_resepsi'
+                      onChange={(e) => {
+                        handleKabupatenChange(e);
+                      }}
+                      value={formState.kode_kabupaten_resepsi}
+                    >
+                      <option value=''> Kabupaten </option>
+                      {selection.kabupatenSelectionResepsi?.map((kabupaten) => (
+                        <option value={kabupaten?.id} key={kabupaten?.id}>
+                          {kabupaten.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className='col-span-1  lg:col-span-4 '>
+                  <div class='font-bold h-6 text-gray-600 text-xs leading-8 '>
+                    {' '}
+                    Kecamatan
+                  </div>
+                  <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
+                    <select
+                      className='px-2 py-1.5 text-sm bg-white text-gray-900   w-full '
+                      aria-label='Floating'
+                      id='kode_kecamatan_resepsi'
+                      name='kode_kecamatan_resepsi'
+                      onChange={(e) => {
+                        handleKecamatanChange(e);
+                      }}
+                      value={formState.kode_kecamatan_resepsi}
+                    >
+                      <option value=''> kecamatan </option>
+                      {selection.kecamatanSelectionResepsi?.map((kecamatan) => (
+                        <option value={kecamatan?.id} key={kecamatan?.id}>
+                          {kecamatan.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div className='col-span-1  lg:col-span-4 '>
+                  <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
+                    {' '}
+                    Kelurahan
+                  </div>
+                  <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
+                    <select
+                      className='px-2 py-1.5 text-sm bg-white text-gray-900   w-full '
+                      aria-label='Floating'
+                      id='kode_kelurahan_resepsi'
+                      name='kode_kelurahan_resepsi'
+                      onChange={(e) => {
+                        handleKelurahanChange(e);
+                      }}
+                      value={formState.kode_kelurahan_resepsi}
+                    >
+                      <option value=''> kelurahan </option>
+                      {selection.kelurahanSelectionResepsi?.map((kelurahan) => (
+                        <option value={kelurahan?.id} key={kelurahan?.id}>
+                          {kelurahan.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div className='grid grid-cols-1  lg:grid-cols-12 gap-x-4 gap-y-0 '>
+                <div className='col-span-1  lg:col-span-4 '>
+                  <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
+                    {' '}
+                    Kode Pos
+                  </div>
+                  <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
+                    <input
+                      type='number'
+                      class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
+                      name='kode_pos_resepsi'
+                      id='kode_pos_resepsi'
+                      {...register('kode_pos_resepsi', {
+                        required: true,
+                      })}
+                      onChange={(e) => {
+                        setValue(e.target.name, e.target.value.slice(0, 6));
+                        setFormState({
+                          ...formState,
+                          [e.target.name]: e.target.value.slice(0, 6),
+                        });
+                      }}
+                      value={formState.kode_pos_resepsi}
+                    />{' '}
+                  </div>
+                </div>
+                <div className='col-span-1  lg:col-span-4 '>
+                  <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
+                    {' '}
+                    Detail Lainnya
+                  </div>
+                  <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
+                    <input
+                      type='text'
+                      placeholder='kelurahan, Rumah warna hijau'
+                      class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
+                      name='detail_alamat_resepsi'
+                      id='detail_alamat_resepsi'
+                      {...register('detail_alamat_resepsi', {
+                        required: true,
+                      })}
+                      onChange={(e) => {
+                        handleInputChange(e);
+                      }}
+                      value={formState.detail_alamat_resepsi}
+                    />{' '}
+                  </div>
+                </div>
+                <div className='col-span-1  lg:col-span-4 '>
+                  <div class='font-bold h-6  text-gray-600 text-xs leading-8 '>
+                    {' '}
+                    Tanggal resepsi
+                  </div>
+                  <div class='bg-white my-2 p-1 flex border border-gray-200 rounded svelte-1l8159u'>
+                    <input
+                      type='datetime-local'
+                      class='p-1 px-2 appearance-none outline-none w-full text-gray-800'
+                      name='tanggal_resepsi'
+                      id='tanggal_resepsi'
+                      min={minDate}
+                      {...register('tanggal_resepsi', {
+                        required: true,
+                      })}
+                      onChange={(e) => {
+                        handleInputChange(e);
+                      }}
+                      value={formState.tanggal_resepsi}
+                    />{' '}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        ''
+      )}
     </>
   );
 };
@@ -581,11 +604,12 @@ const FormAlamat = (props) => {
     register,
     setValue,
     selection,
-    setSelection,
     handleProvinsiChange,
     handleKabupatenChange,
     handleKecamatanChange,
     handleKelurahanChange,
+    isSameWithAkad,
+    setSameWithAkad,
   } = props;
   const [minDate, setMinDate] = useState('');
 
@@ -616,7 +640,6 @@ const FormAlamat = (props) => {
         register={register}
         setValue={setValue}
         selection={selection}
-        setSelection={setSelection}
         handleProvinsiChange={handleProvinsiChange}
         handleKabupatenChange={handleKabupatenChange}
         handleKecamatanChange={handleKecamatanChange}
@@ -631,11 +654,12 @@ const FormAlamat = (props) => {
         register={register}
         setValue={setValue}
         selection={selection}
-        setSelection={setSelection}
         handleProvinsiChange={handleProvinsiChange}
         handleKabupatenChange={handleKabupatenChange}
         handleKecamatanChange={handleKecamatanChange}
         handleKelurahanChange={handleKelurahanChange}
+        isSameWithAkad={isSameWithAkad}
+        setSameWithAkad={setSameWithAkad}
       />
     </div>
   );
