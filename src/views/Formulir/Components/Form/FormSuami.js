@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import React from 'react';
 import { FileUploader } from 'react-drag-drop-files';
-import limitString from '../../../../utils/helpers/string';
 
 const FormSuami = (props) => {
   const {
@@ -13,17 +12,10 @@ const FormSuami = (props) => {
     handleInputChange,
     register,
     setValue,
+    handleChangeImage,
   } = props;
   const fileTypes = ['JPEG', 'PNG', 'GIF', 'JPG'];
-  const handleChange = (file) => {
-    if (file.length !== 0) {
-      setFormState({
-        ...formState,
-        pas_foto_suami: URL.createObjectURL(file),
-        nama_pas_foto_suami: limitString(file?.name, 35),
-      });
-    }
-  };
+
   // console.log(errors.nama_lengkap_suami?.type, '--------');
   return (
     <div
@@ -34,7 +26,7 @@ const FormSuami = (props) => {
       }  ${step.position === steps.id ? 'transform ' : ''}`}
     >
       <div class='flex flex-col md:flex-row sm:hidden'>
-        <h1 className='m-auto text-center text-3xl font-bold my-2'>
+        <h1 className='m-auto text-center text-3xl font-bold mb-2'>
           Mempelai Laki-laki
         </h1>
       </div>
@@ -208,7 +200,9 @@ const FormSuami = (props) => {
       </div>
       <FileUploader
         multiple={false}
-        handleChange={(file) => handleChange(file)}
+        handleChange={(file) =>
+          handleChangeImage(file, 'pas_foto_suami', 'nama_file_pas_foto_suami')
+        }
         name='file'
         types={fileTypes}
         dropMessageStyle={{ margin: '0  0.5rem' }}
@@ -259,7 +253,7 @@ const FormSuami = (props) => {
       </FileUploader>
       <p className='px-2 mx-auto'>
         {formState?.pas_foto_suami
-          ? `File: ${formState?.nama_pas_foto_suami}`
+          ? `File: ${formState?.nama_file_pas_foto_suami}`
           : ''}
       </p>
     </div>

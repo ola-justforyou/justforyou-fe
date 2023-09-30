@@ -4,6 +4,7 @@ import FormIstri from './FormIstri';
 import FormSuami from './FormSuami';
 import FormAlamat from './FormAlamat';
 import FormGaleri from './FormGaleri';
+import limitString from '../../../../utils/helpers/string';
 import { connect, useDispatch } from 'react-redux';
 import {
   getListProvinsi,
@@ -72,6 +73,20 @@ const Form = (props) => {
     kode_kelurahan_resepsi: '',
     kode_pos_resepsi: '',
     tanggal_resepsi: '',
+    foto_landscape: '',
+    foto_galeri_1: '',
+    foto_galeri_2: '',
+    foto_galeri_3: '',
+    foto_galeri_4: '',
+    foto_galeri_5: '',
+    foto_potrait: '',
+    nama_file_foto_landscape: '',
+    nama_file_foto_galeri_1: '',
+    nama_file_foto_galeri_2: '',
+    nama_file_foto_galeri_3: '',
+    nama_file_foto_galeri_4: '',
+    nama_file_foto_galeri_5: '',
+    nama_file_foto_potrait: '',
   });
 
   const [provinsiSelected, setProvinsiSelected] = useState('');
@@ -93,6 +108,16 @@ const Form = (props) => {
       [name]: value.slice(0, 50),
     });
   }
+  const handleChangeImage = (file, properti, name) => {
+    console.log(file, '-----', properti, '----', name);
+    if (file.length !== 0) {
+      setFormState({
+        ...formState,
+        [properti]: URL.createObjectURL(file),
+        [name]: limitString(file?.name, 35),
+      });
+    }
+  };
 
   const handleGetListProvinsi = async (e) => {
     await getListProvinsi();
@@ -159,6 +184,7 @@ const Form = (props) => {
           handleInputChange={handleInputChange}
           register={register}
           setValue={setValue}
+          handleChangeImage={handleChangeImage}
         />
       ),
     },
@@ -174,6 +200,7 @@ const Form = (props) => {
           handleInputChange={handleInputChange}
           register={register}
           setValue={setValue}
+          handleChangeImage={handleChangeImage}
         />
       ),
     },
@@ -210,6 +237,7 @@ const Form = (props) => {
           handleInputChange={handleInputChange}
           register={register}
           setValue={setValue}
+          handleChangeImage={handleChangeImage}
         />
       ),
     },

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import React from 'react';
 import { FileUploader } from 'react-drag-drop-files';
-import limitString from '../../../../utils/helpers/string';
 
 const FormIstri = (props) => {
   const {
@@ -12,19 +11,11 @@ const FormIstri = (props) => {
     handleInputChange,
     register,
     setValue,
+    handleChangeImage,
   } = props;
 
   const fileTypes = ['JPEG', 'PNG', 'GIF', 'JPG'];
 
-  const handleChange = (file) => {
-    if (file.length !== 0) {
-      setFormState({
-        ...formState,
-        pas_foto_istri: URL.createObjectURL(file),
-        nama_pas_foto_istri: limitString(file?.name, 35),
-      });
-    }
-  };
   return (
     <div
       className={` shadow-md border-gray-500 rounded p-4 ${
@@ -34,7 +25,7 @@ const FormIstri = (props) => {
       }  ${step.position === steps.id ? 'transform ' : ''}`}
     >
       <div class='flex flex-col md:flex-row sm:hidden'>
-        <h1 className='m-auto text-center text-3xl font-bold my-2'>
+        <h1 className='m-auto text-center text-3xl font-bold mb-3'>
           Mempelai Perempuan
         </h1>
       </div>
@@ -198,7 +189,9 @@ const FormIstri = (props) => {
       </div>
       <FileUploader
         multiple={false}
-        handleChange={(file) => handleChange(file)}
+        handleChange={(file) =>
+          handleChangeImage(file, 'pas_foto_istri', 'nama_file_pas_foto_istri')
+        }
         name='file'
         types={fileTypes}
         dropMessageStyle={{ margin: '0  0.5rem' }}
@@ -249,7 +242,7 @@ const FormIstri = (props) => {
       </FileUploader>
       <p className='px-2 mx-auto'>
         {formState?.pas_foto_istri
-          ? `File: ${formState?.nama_pas_foto_istri}`
+          ? `File: ${formState?.nama_file_pas_foto_istri}`
           : ''}
       </p>
     </div>

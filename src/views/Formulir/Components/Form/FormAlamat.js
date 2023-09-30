@@ -460,13 +460,11 @@ const FormAlamatResepsi = (props) => {
                   value={formState.kode_kecamatan_resepsi}
                 >
                   <option value=''> kecamatan </option>
-                  {selection.kecamatanSelectionResepsi
-                    .sort((a, b) => a.name.localeCompare(b.name))
-                    ?.map((kecamatan) => (
-                      <option value={kecamatan?.id} key={kecamatan?.id}>
-                        {kecamatan.name}
-                      </option>
-                    ))}
+                  {selection.kecamatanSelectionResepsi?.map((kecamatan) => (
+                    <option value={kecamatan?.id} key={kecamatan?.id}>
+                      {kecamatan.name}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
