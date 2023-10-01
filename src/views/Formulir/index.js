@@ -16,6 +16,7 @@ import FormIstri from '../Formulir/Components/Form/FormIstri';
 import FormSuami from '../Formulir/Components/Form/FormSuami';
 import FormAlamat from '../Formulir/Components/Form/FormAlamat';
 import FormGaleri from '../Formulir/Components/Form/FormGaleri';
+import FormPreview from '../Formulir/Components/Form/FormPreview';
 import limitString from '../../utils/helpers/string';
 
 const Formulir = (props) => {
@@ -39,7 +40,7 @@ const Formulir = (props) => {
   const [step, setStep] = useState({
     start: true,
     finish: false,
-    position: 1,
+    position: 0,
   });
   const [formState, setFormState] = useState({
     nama_lengkap_suami: '',
@@ -280,6 +281,11 @@ const Formulir = (props) => {
         />
       ),
     },
+    {
+      id: 5,
+      label: 'Preview',
+      form: <FormPreview step={step} steps={steps} formState={formState} />,
+    },
   ];
   useEffect(() => {
     handleGetListProvinsi();
@@ -364,8 +370,8 @@ const Formulir = (props) => {
     }
   }, [listKelurahan, kecamatanSelected]);
 
-  console.log(formState, 'formState');
-  console.log(step?.position, 'posisi');
+  // console.log(formState, 'formState');
+  // console.log(step?.position, 'posisi');
   return (
     <div className='relative w-screen min-h-screen flex flex-col mb-24'>
       <Navbar />
@@ -376,18 +382,50 @@ const Formulir = (props) => {
             m-auto text-gray-600 flex'
           >
             <div class='w-screen'>
-              <div class='mx-4 px-4 py-1 sm:py-4'>
+              <div class='mx-4 px-4 py-1 sm:py-4  '>
                 {/* stepper */}
+                {step.position === 0 && step.start ? (
+                  ''
+                ) : (
+                  <div
+                    className='flex gap-x-2 mb-5 cursor-pointer sm:hidden'
+                    onClick={() => {
+                      setStep((prevState) => ({
+                        ...prevState,
+                        start: step.position <= 2 ? true : false,
+                        finish: false,
+                        position: step.position === 0 ? 0 : step.position - 1,
+                      }));
+                    }}
+                  >
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      width='24'
+                      height='24'
+                      viewBox='0 0 24 24'
+                      fill='none'
+                      stroke='currentColor'
+                      stroke-width='2'
+                      stroke-linecap='round'
+                      stroke-linejoin='round'
+                      class='lucide lucide-chevron-left'
+                    >
+                      <path d='m15 18-6-6 6-6' />
+                    </svg>
+                    <p>Kembali</p>
+                  </div>
+                )}
+
                 <Stepper step={step} setStep={setStep} steps={steps} />
               </div>
               <div class='mt-0 sm:mt-5 p-4'>
                 <form key={1} onSubmit={onSubmitHandler}>
-                  {formulirs.map((item) => (
-                    <>{step.position === item.id ? item.form : ''}</>
+                  {formulirs.map((item, key) => (
+                    <>{step.position === key ? item.form : ''}</>
                   ))}
                 </form>
-                <div class='flex p-2 mt-4'>
-                  {step.position <= 1 && step.start ? (
+                <div class='flex p-2 mt-6 px-6'>
+                  {step.position === 0 && step.start ? (
                     ''
                   ) : (
                     <button
@@ -396,11 +434,12 @@ const Formulir = (props) => {
         bg-gray-100 
         text-gray-700 
         border duration-200 ease-in-out 
-        border-gray-600 transition'
+        border-gray-600 transition hidden sm:block'
                       onClick={() => {
+                        console.log(step?.position, 'posisi');
                         setStep((prevState) => ({
                           ...prevState,
-                          start: step.position <= 2 ? true : false,
+                          start: step.position <= 1 ? true : false,
                           finish: false,
                           position: step.position === 0 ? 0 : step.position - 1,
                         }));
@@ -410,9 +449,9 @@ const Formulir = (props) => {
                     </button>
                   )}
                   <div class='flex-auto flex flex-row-reverse'>
-                    {step.position >= 5 ? (
+                    {step.position === steps.length - 1 ? (
                       <button
-                        class='text-base  ml-2  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
+                        class='sm:w-auto w-full text-base  ml-2  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
         hover:bg-teal-600  
         bg-teal-600 
         text-teal-100 
@@ -420,6 +459,7 @@ const Formulir = (props) => {
         border-teal-600 transition'
                         // type='submit'
                         onClick={() => {
+                          console.log(step?.position, 'posisi');
                           setStep((prevState) => ({
                             ...prevState,
                             start: false,
@@ -434,7 +474,7 @@ const Formulir = (props) => {
                       </button>
                     ) : (
                       <button
-                        class='text-base  ml-2  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
+                        class='sm:w-auto w-full text-base   hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
         hover:bg-teal-600  
         bg-teal-600 
         text-teal-100 
@@ -444,9 +484,12 @@ const Formulir = (props) => {
                           setStep((prevState) => ({
                             ...prevState,
                             start: false,
-                            finish: step.position >= 5 ? true : false,
+                            finish:
+                              step.position === steps.length - 1 ? true : false,
                             position:
-                              step.position === 6 ? 6 : step.position + 1,
+                              step.position === steps.length - 1
+                                ? steps.length - 1
+                                : step.position + 1,
                           }));
                         }}
                       >
@@ -463,7 +506,6 @@ const Formulir = (props) => {
     </div>
   );
 };
-
 const mapStateToProps = (state) => ({
   listProvinsi: state.wilayah.data.provinsi,
   listKabupaten: state.wilayah.data.kabupaten,

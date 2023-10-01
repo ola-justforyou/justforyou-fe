@@ -18,7 +18,7 @@ const FormIstri = (props) => {
 
   return (
     <div
-      className={` shadow-md border-gray-500 rounded p-4 ${
+      className={` shadow-md border-gray-500 rounded p-3 ${
         step.position < steps.id
           ? 'transition-transform'
           : 'transition-transform-out'
