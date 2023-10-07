@@ -10,7 +10,7 @@ const Stepper = (props) => {
       {steps.map((item, key) => (
         <>
           <div
-            class={`${
+            class={`cursor-pointer ${
               step.position === key ? ' text-white' : ' text-teal-600'
             } 'flex items-center relative`}
             id={key}
@@ -33,20 +33,13 @@ const Stepper = (props) => {
             }}
           >
             <div
-              class={`${
+              class={` ${
                 step.position === key
                   ? 'progress-bullet-active'
                   : step.position > key
                   ? 'progress-bullet-done'
                   : 'progress-bullet'
               } `}
-              // triger click untuk ke posisi formulir
-              // onClick={() => {
-              //   setStep((prevState) => ({
-              //     ...prevState,
-              //     position: key,
-              //   }));
-              // }}
             >
               {step.position > key ? (
                 <DoneIcon

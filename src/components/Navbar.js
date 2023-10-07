@@ -25,7 +25,7 @@ const Navbar = () => {
           </Link>
           <div class='flex md:order-2'>
             <Link
-              to='/desainundangan'
+              to='/formulir'
               type='button'
               class='text-blue-700 bg-white hover:text-white hover:bg-blue-800 focus:ring-4 border border-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 hidden sm:block'
             >

@@ -284,7 +284,21 @@ const Formulir = (props) => {
     {
       id: 5,
       label: 'Preview',
-      form: <FormPreview step={step} steps={steps} formState={formState} />,
+      form: (
+        <FormPreview
+          step={step}
+          steps={steps}
+          formState={formState}
+          provinsiSelectionAkad={selection.provinsiSelectionAkad}
+          provinsiSelectionResepsi={selection.provinsiSelectionResepsi}
+          kabupatenSelectionAkad={selection.kabupatenSelectionAkad}
+          kabupatenSelectionResepsi={selection.kabupatenSelectionResepsi}
+          kecamatanSelectionAkad={selection.kecamatanSelectionAkad}
+          kecamatanSelectionResepsi={selection.kecamatanSelectionResepsi}
+          kelurahanSelectionAkad={selection.kelurahanSelectionAkad}
+          kelurahanSelectionResepsi={selection.kelurahanSelectionResepsi}
+        />
+      ),
     },
   ];
   useEffect(() => {
@@ -370,7 +384,7 @@ const Formulir = (props) => {
     }
   }, [listKelurahan, kecamatanSelected]);
 
-  // console.log(formState, 'formState');
+  console.log(formState, 'formState');
   // console.log(step?.position, 'posisi');
   return (
     <div className='relative w-screen min-h-screen flex flex-col mb-24'>
@@ -436,7 +450,6 @@ const Formulir = (props) => {
         border duration-200 ease-in-out 
         border-gray-600 transition hidden sm:block'
                       onClick={() => {
-                        console.log(step?.position, 'posisi');
                         setStep((prevState) => ({
                           ...prevState,
                           start: step.position <= 1 ? true : false,
@@ -445,7 +458,7 @@ const Formulir = (props) => {
                         }));
                       }}
                     >
-                      Previous
+                      Kembali
                     </button>
                   )}
                   <div class='flex-auto flex flex-row-reverse'>
@@ -464,8 +477,6 @@ const Formulir = (props) => {
                             ...prevState,
                             start: false,
                             finish: step.position >= 5 ? true : false,
-                            position:
-                              step.position === 6 ? 6 : step.position + 1,
                           }));
                           onSubmitHandler();
                         }}
