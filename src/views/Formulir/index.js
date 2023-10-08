@@ -143,7 +143,9 @@ const Formulir = (props) => {
     setFormState({
       ...formState,
       // [name]: titleCase(value),
-      [name]: value.slice(0, 50),
+      [name]: value
+        .slice(0, 50)
+        .replace(/\b\w/g, (match) => match.toUpperCase()),
     });
   }
   const handleGetListProvinsi = async () => {
@@ -289,6 +291,7 @@ const Formulir = (props) => {
           step={step}
           steps={steps}
           formState={formState}
+          isSameWithAkad={isSameWithAkad}
           provinsiSelectionAkad={selection.provinsiSelectionAkad}
           provinsiSelectionResepsi={selection.provinsiSelectionResepsi}
           kabupatenSelectionAkad={selection.kabupatenSelectionAkad}

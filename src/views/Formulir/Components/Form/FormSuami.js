@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import React from 'react';
 import { FileUploader } from 'react-drag-drop-files';
-
+import soundPunch from '../../../../assets/sounds/punch.mp3';
 const FormSuami = (props) => {
   const {
     errors,
@@ -15,6 +15,20 @@ const FormSuami = (props) => {
     handleChangeImage,
   } = props;
   const fileTypes = ['JPEG', 'PNG', 'GIF', 'JPG'];
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
+
+  const toggleSound = () => {
+    const audioElement = audioRef.current;
+
+    if (isPlaying) {
+      audioElement.pause();
+    } else {
+      audioElement.play();
+    }
+
+    setIsPlaying(!isPlaying);
+  };
 
   // console.log(errors.nama_lengkap_suami?.type, '--------');
   return (
@@ -256,6 +270,15 @@ const FormSuami = (props) => {
           ? `File: ${formState?.nama_file_pas_foto_suami}`
           : ''}
       </p>
+      <div>
+        <button onClick={toggleSound}>
+          {isPlaying ? 'Stop Sound' : 'Play Sound'}
+        </button>
+        <audio ref={audioRef}>
+          <source src={soundPunch} type='audio/mpeg' />
+          Your browser does not support the audio element.
+        </audio>
+      </div>
     </div>
   );
 };
