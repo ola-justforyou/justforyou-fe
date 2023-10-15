@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import Navbar from '../../components/Navbar';
+import Navbar from '../../components/Navbar/Navbar';
 import Stepper from './Components/Stepper';
 import BoyIcon from '@mui/icons-material/Boy';
 import GirlIcon from '@mui/icons-material/Girl';
@@ -94,6 +94,8 @@ const Formulir = (props) => {
     nama_file_foto_galeri_5: '',
     nama_file_foto_potrait: '',
   });
+
+  const formSuamiRef = useRef(null);
 
   const [provinsiSelected, setProvinsiSelected] = useState('');
   const [kabupatenSelected, setKabupatenSelected] = useState('');
@@ -226,6 +228,7 @@ const Formulir = (props) => {
           register={register}
           setValue={setValue}
           handleChangeImage={handleChangeImage}
+          formSuamiRef={formSuamiRef}
         />
       ),
     },
@@ -495,6 +498,8 @@ const Formulir = (props) => {
         border duration-200 ease-in-out 
         border-teal-600 transition'
                         onClick={() => {
+                          const formSuamiElement = formSuamiRef.current;
+                          console.log(formSuamiElement);
                           setStep((prevState) => ({
                             ...prevState,
                             start: false,

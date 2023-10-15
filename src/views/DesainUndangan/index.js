@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Navbar from '../../components/Navbar';
+import Navbar from '../../components/Navbar/Navbar';
 
 const DesainUndangan = () => {
   const filledArray = Array(6).fill(5);

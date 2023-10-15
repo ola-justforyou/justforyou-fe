@@ -4,7 +4,7 @@ import { React, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getWaybill } from '../actions';
 import LandingPage from './LandingPage';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar/Navbar';
 function App(props) {
   const { state, getWaybill } = props;
   const getDataWaybill = async () => {

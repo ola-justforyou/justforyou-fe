@@ -4,7 +4,6 @@ import MapIcon from '@mui/icons-material/Map';
 import './style.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
-// Import Swiper styles
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -32,7 +31,7 @@ const LandingPage = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-  // console.log(deviceType, '--');
+
   return (
     <div>
       <section className='bg-white h-screen flex flex-col'>

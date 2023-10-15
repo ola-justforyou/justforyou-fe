@@ -13,19 +13,21 @@ const FormSuami = (props) => {
     register,
     setValue,
     handleChangeImage,
+    formSuamiRef,
   } = props;
   const fileTypes = ['JPEG', 'PNG', 'GIF', 'JPG'];
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
 
   const toggleSound = () => {
-    const audioElement = audioRef.current;
+    // const audioElement = audioRef.current;
+    // console.log(audioElement);
 
-    if (isPlaying) {
-      audioElement.pause();
-    } else {
-      audioElement.play();
-    }
+    // if (isPlaying) {
+    //   audioElement.pause();
+    // } else {
+    //   audioElement.play();
+    // }
 
     setIsPlaying(!isPlaying);
   };
@@ -38,6 +40,7 @@ const FormSuami = (props) => {
           ? 'transition-transform'
           : 'transition-transform-out'
       }  ${step.position === steps.id ? 'transform ' : ''}`}
+      ref={formSuamiRef}
     >
       <div class='flex flex-col md:flex-row sm:hidden'>
         <h1 className='m-auto text-center text-3xl font-bold mb-2'>
