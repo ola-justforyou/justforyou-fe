@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import ImageIcon from '@mui/icons-material/Image';
 import MapIcon from '@mui/icons-material/Map';
-import './style.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 
 import 'swiper/css';
+import '../LandingPage/style.css';
 import 'swiper/css/pagination';
+import jumbotronImage from '../../assets/images/jumbotron.png';
+import mockup1Image from '../../assets/images/mockup1.png';
+import mockup2Image from '../../assets/images/mockup2.png';
+
 const LandingPage = () => {
   const [deviceType, setDeviceType] = useState('');
 
@@ -36,9 +40,10 @@ const LandingPage = () => {
     <div>
       <section className='bg-white h-screen flex flex-col'>
         <div className='grid max-w-screen-xl px-4 py-8  mx-auto my-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12'>
-          <div className='mr-auto place-self-center lg:col-span-7 text-gray-600'>
+          <div className='mr-auto place-self-center lg:col-span-7 text-gray-600 gap-y-3'>
             <h1 className='max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl '>
-              Bagikan Kehagiaanmu Bersama Kami
+              Bagikan Kehagiaanmu{' '}
+              <span className='text-blue-700  mt-24'>Bersama Kami</span>
             </h1>
             <p className='max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl '>
               Rayakan dan bagikan momen terindah dalam hidup dengan lebih
@@ -46,7 +51,7 @@ const LandingPage = () => {
             </p>
             <a
               href='#'
-              className='text-white bg-green-800 opacity-70 hover:text-green-800 hover:bg-white inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center  rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 '
+              className='text-white bg-blue-800    hover:text-blue-800 hover:bg-white inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center  rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 '
             >
               Pesan Sekarang
               <svg
@@ -62,30 +67,23 @@ const LandingPage = () => {
                 ></path>
               </svg>
             </a>
-            <a
+            {/* <a
               href='#'
               className='inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100  '
             >
               Coba Gratis
-            </a>
+            </a> */}
           </div>
-          <div className='hidden lg:mt-0 lg:col-span-5 lg:flex bg-gray-200'>
-            {/* <img
-              src='https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png'
+          <div className='hidden lg:mt-0 lg:col-span-5 lg:flex  '>
+            <img
+              src={jumbotronImage}
               alt='mockup'
-            ></img> */}
-            <ImageIcon
-              sx={{
-                fontSize: '12em',
-                color: 'grey',
-                opacity: '0.5',
-                margin: 'auto',
-              }}
-            />
+              className='w-96  mx-auto'
+            ></img>
           </div>
         </div>
       </section>
-      <section class='bg-white '>
+      <section class='bg-gray-100 w-screen  py-12 '>
         <div class='px-4 mx-auto max-w-screen-xl  lg:px-6 flex flex-col'>
           <div class='max-w-screen-md mb-8 lg:mb-16 mx-auto flex flex-col gap-y-4'>
             <h2 class=' text-4xl text-center tracking-tight font-extrabold text-gray-600 '>
@@ -97,25 +95,14 @@ const LandingPage = () => {
             </p>
             <a
               href='#'
-              className='mx-auto mt-4 inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white bg-green-800 opacity-70 hover:text-green-800 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100  '
+              className='mx-auto mt-4 inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white bg-blue-800   hover:text-blue-800 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 hidden xl:block hidden'
             >
               Pelajari Selengkapnya
             </a>
           </div>
-          <div class='w-100 flex bg-gray-200'>
-            <div className='m-auto py-36'>
-              {/* <img
-                src='https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png'
-                alt='mockup'
-              ></img> */}
-              <ImageIcon
-                sx={{
-                  fontSize: '15em',
-                  color: 'grey',
-                  opacity: '0.5',
-                  margin: 'auto',
-                }}
-              />
+          <div class='w-100 flex  '>
+            <div className='m-auto  '>
+              <img src={mockup1Image} alt='mockup' className='sh '></img>
             </div>
           </div>
         </div>
@@ -127,19 +114,8 @@ const LandingPage = () => {
               Olagiftbox
             </h2>
           </div> */}
-          <div className='mt-6   py-10 lg:mt-0 lg:col-span-5 flex bg-gray-200 order-2 md:order-1'>
-            {/* <img
-              src='https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png'
-              alt='mockup'
-            ></img> */}
-            <ImageIcon
-              sx={{
-                fontSize: '12em',
-                color: 'grey',
-                opacity: '0.5',
-                margin: 'auto',
-              }}
-            />
+          <div className='mt-6   py-10 lg:mt-0 lg:col-span-5 flex  order-2 md:order-1'>
+            <img src={mockup2Image} alt='mockup' className='mx-auto '></img>
           </div>
           <div className='m-auto place-self-center lg:col-span-7 text-gray-600 w-full order-1 md:order-2'>
             <h2 className='mt-10 md:mt-5 max-w-2xl mb-2 text-4xl font-extrabold tracking-tight leading-none  '>
@@ -152,7 +128,7 @@ const LandingPage = () => {
 
             <a
               href='#'
-              className='mt-0 text-white bg-green-800 opacity-70 hover:text-green-800 hover:bg-white inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center  rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 '
+              className='mt-0 text-white bg-blue-800   hover:text-blue-800 hover:bg-white inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center  rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 '
             >
               Pelajari Selengkapnya
               <svg
@@ -271,6 +247,7 @@ const LandingPage = () => {
                 justifyContent: 'center',
                 alignContent: 'center',
                 alignItems: 'center',
+                backgroundColor: 'white',
               }}
             >
               <div class='flex flex-col p-6 mb-10 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow -600 xl:p-8  '>
@@ -371,7 +348,7 @@ const LandingPage = () => {
                   href='#'
                   class='text-white bg-green-800 opacity-70 hover:text-green-800 hover:bg-white font-medium rounded-lg text-sm px-5 py-2.5 text-center'
                 >
-                  Get started
+                  Pilih
                 </a>
               </div>
             </SwiperSlide>
@@ -381,6 +358,7 @@ const LandingPage = () => {
                 justifyContent: 'center',
                 alignContent: 'center',
                 alignItems: 'center',
+                backgroundColor: 'white',
               }}
               slot='container-start'
             >
@@ -482,7 +460,7 @@ const LandingPage = () => {
                   href='#'
                   class='text-white bg-green-800 opacity-70 hover:text-green-800 hover:bg-white font-medium rounded-lg text-sm px-5 py-2.5 text-center'
                 >
-                  Get started
+                  Pilih
                 </a>
               </div>
             </SwiperSlide>
@@ -492,6 +470,7 @@ const LandingPage = () => {
                 justifyContent: 'center',
                 alignContent: 'center',
                 alignItems: 'center',
+                backgroundColor: 'white',
               }}
             >
               <div class='flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow -600 xl:p-8  '>
@@ -592,7 +571,7 @@ const LandingPage = () => {
                   href='#'
                   class='text-white bg-green-800 opacity-70 hover:text-green-800 hover:bg-white font-medium rounded-lg text-sm px-5 py-2.5 text-center'
                 >
-                  Get started
+                  Pilih
                 </a>
               </div>
             </SwiperSlide>
@@ -707,9 +686,9 @@ const LandingPage = () => {
                 </ul>
                 <a
                   href='#'
-                  class='text-white bg-green-800 opacity-70 hover:text-green-800 hover:bg-white font-medium rounded-lg text-sm px-5 py-2.5 text-center'
+                  class='text-white bg-blue-800  hover:text-blue-800 hover:bg-white font-medium rounded-lg text-sm px-5 py-2.5 text-center'
                 >
-                  Get started
+                  Pilih
                 </a>
               </div>
 
@@ -823,9 +802,9 @@ const LandingPage = () => {
                 </ul>
                 <a
                   href='#'
-                  class='text-white bg-green-800 opacity-70 hover:text-green-800 hover:bg-white font-medium rounded-lg text-sm px-5 py-2.5 text-center'
+                  class='text-white bg-blue-800  hover:text-blue-800 hover:bg-white font-medium rounded-lg text-sm px-5 py-2.5 text-center'
                 >
-                  Get started
+                  Pilih
                 </a>
               </div>
 
@@ -930,9 +909,9 @@ const LandingPage = () => {
                 </ul>
                 <a
                   href='#'
-                  class='text-white bg-green-800 opacity-70 hover:text-green-800 hover:bg-white font-medium rounded-lg text-sm px-5 py-2.5 text-center '
+                  class='text-white bg-blue-800  hover:text-blue-800 hover:bg-white font-medium rounded-lg text-sm px-5 py-2.5 text-center '
                 >
-                  Get started
+                  Pilih
                 </a>
               </div>
             </div>
@@ -947,15 +926,14 @@ const LandingPage = () => {
           </h2>
         </div>
         <div className='grid max-w-screen-xl px-4 py-8  mx-auto my-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12'>
-          <div className='  py-10 lg:col-span-5 flex bg-gray-200'>
-            <MapIcon
-              sx={{
-                fontSize: '12em',
-                color: 'grey',
-                opacity: '0.5',
-                margin: 'auto',
+          <div className='  py-10 lg:col-span-5 flex  '>
+            <iframe
+              src='https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d15900.139300098195!2d105.20778015!3d-4.933825949999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sid!4v1703316475404!5m2!1sen!2sid'
+              style={{
+                width: '100%',
+                height: '300px',
               }}
-            />
+            ></iframe>
           </div>
           <div className='mt-6 flex flex-col gap-y-9 md:px-6 px-0 py-10 lg:mt-0 mr-auto place-self-center lg:col-span-7 text-gray-600'>
             <p className='max-w-2xlfont-light text-gray-500  md:text-lg lg:text-xl '>

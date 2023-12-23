@@ -89,7 +89,7 @@ const FormGaleri = (props) => {
           {' '}
           Foto Galeri
         </div>
-        <div class='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-6 my-2'>
+        <div class='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-x-4 gap-y-6 my-2'>
           <FileUploader
             multiple={false}
             handleChange={(file) =>
